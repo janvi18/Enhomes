@@ -8,7 +8,7 @@ import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
 
-    int time = 5000;
+    int time = 3000;
     GifImageView gifImageView;
 
     @Override

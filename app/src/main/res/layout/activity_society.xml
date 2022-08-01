@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".EventActivity"
     android:orientation="vertical"
-    android:gravity="center"
-    android:background="#FFF0FF">
+    android:padding="20dp">
 
-    <com.e_society.GifImageView
-        android:id="@+id/gif"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/enhomes_logo" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Soceity"
+        android:layout_gravity="center"
+        android:textSize="30sp"
+        android:textColor="@color/purple_500"
+        android:textStyle="bold"/>
 
 </LinearLayout>

@@ -10,6 +10,45 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ESociety">
         <activity
+            android:name=".HouseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PlaceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SuggestionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ComplaintActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StaffActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DeliveryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VisitorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MaintanenceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MemberActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SocietyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EventActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DashBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignupActivity"
             android:exported="false" />
         <activity

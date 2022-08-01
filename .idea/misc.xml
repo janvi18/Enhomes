@@ -7,11 +7,30 @@
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/drawable-v24/edt_signup_bg.xml" value="0.26875" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/drawable-v24/edtuix_bg.xml" value="0.26875" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/drawable-v24/shape.xml" value="0.26875" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/drawable/bg_signup.xml" value="0.26461538461538464" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/drawable/ic_email.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/drawable/ic_key.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/drawable/purple_bg.xml" value="0.1" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/drawable/white_box.xml" value="0.26461538461538464" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/drawable/white_small.xml" value="0.26461538461538464" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_complaint.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_dash_board.xml" value="0.16483516483516483" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_delivery.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_event.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_general_layout.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_home.xml" value="0.24871794871794872" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_house.xml" value="0.2375" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_login.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_main.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_maintanence.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_member.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_place.xml" value="0.2375" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_signup.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_society.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_staff.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_suggestion.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_visitor.xml" value="0.2375" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/raw_grid.xml" value="0.24895833333333334" />
       </map>
     </option>
   </component>
