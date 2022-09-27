@@ -1,4 +1,4 @@
-package com.e_society;
+package com.e_society.model;
 
 public class LangModel {
     String strData;

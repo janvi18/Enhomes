@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.GridView;
 
+import com.e_society.adapter.MyListAdapter;
+import com.e_society.model.LangModel;
+
 import java.util.ArrayList;
 
 public class UserDashBoardActivity extends AppCompatActivity {
@@ -15,7 +18,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
             "Suggestion", "Delivery","Visitor","House","Place"};
 
     int imgData[]={R.drawable.role,R.drawable.user,R.drawable.member,R.drawable.event,
-            R.drawable.society,R.drawable.maintanence,R.drawable.complaint,
+           R.drawable.maintanence,R.drawable.complaint,
             R.drawable.suggestion,R.drawable.delivery,R.drawable.visitor,R.drawable.house,R.drawable.place};
 
     ArrayList<LangModel> langModelArrayList;
@@ -34,8 +37,8 @@ public class UserDashBoardActivity extends AppCompatActivity {
             langModelArrayList.add(langModel);
         }
 
-        MyBaseAdapter myBaseAdapter = new MyBaseAdapter(this, langModelArrayList);
-        gridView.setAdapter(myBaseAdapter);
+        MyListAdapter myListAdapter = new MyListAdapter(this, langModelArrayList);
+        gridView.setAdapter(myListAdapter);
 
     }
 }

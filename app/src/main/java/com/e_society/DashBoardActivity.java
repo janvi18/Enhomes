@@ -8,16 +8,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.e_society.adapter.MyListAdapter;
+import com.e_society.display.MaintenanceDisplayActivity;
+import com.e_society.model.LangModel;
+
 import java.util.ArrayList;
 
 public class DashBoardActivity extends AppCompatActivity {
 
     GridView gridView;
-    String strData[] = {"Role", "User", "Member", "Event", "Society", "Maintenance", "Staff", "Complaint",
+    String strData[] = {"Role", "User", "Member", "Event", "Maintenance", "Staff", "Complaint",
             "Suggestion", "Delivery", "Visitor", "House", "Place"};
     int imgData[] = {R.drawable.role, R.drawable.user, R.drawable.member, R.drawable.event,
-            R.drawable.society, R.drawable.maintanence, R.drawable.staff, R.drawable.complaint,
-            R.drawable.suggestion, R.drawable.delivery, R.drawable.visitor, R.drawable.house, R.drawable.place};
+            R.drawable.maintanence, R.drawable.staff, R.drawable.complaint,
+            R.drawable.suggestion, R.drawable.delivery, R.drawable.visitor, R.drawable.ic_house, R.drawable.place};
 
     ArrayList<LangModel> langModelArrayList;
 
@@ -34,16 +38,16 @@ public class DashBoardActivity extends AppCompatActivity {
             langModelArrayList.add(langModel);
         }
 
-        MyBaseAdapter myBaseAdapter = new MyBaseAdapter(this, langModelArrayList);
-        gridView.setAdapter(myBaseAdapter);
+        MyListAdapter myListAdapter = new MyListAdapter(this, langModelArrayList);
+        gridView.setAdapter(myListAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    Intent intent = new Intent(DashBoardActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(DashBoardActivity.this, RoleActivity.class);
                     startActivity(intent);
                 } else if (i == 1) {
-                    Intent intent = new Intent(DashBoardActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(DashBoardActivity.this, UserActivity.class);
                     startActivity(intent);
                 } else if (i == 2) {
                     Intent intent = new Intent(DashBoardActivity.this, MemberActivity.class);
@@ -54,37 +58,34 @@ public class DashBoardActivity extends AppCompatActivity {
                     startActivity(intent);
 
                 } else if (i == 4) {
-                    Intent intent = new Intent(DashBoardActivity.this, SocietyActivity.class);
-                    startActivity(intent);
-                } else if (i == 5) {
-                    Intent intent = new Intent(DashBoardActivity.this, MaintanenceActivity.class);
+                    Intent intent = new Intent(DashBoardActivity.this, MaintenanceDisplayActivity.class);
                     startActivity(intent);
 
-                } else if (i == 6) {
+                } else if (i == 5) {
                     Intent intent = new Intent(DashBoardActivity.this, StaffActivity.class);
                     startActivity(intent);
 
-                } else if (i == 7) {
+                } else if (i == 6) {
                     Intent intent = new Intent(DashBoardActivity.this, ComplaintActivity.class);
                     startActivity(intent);
 
-                } else if (i == 8) {
+                } else if (i == 7) {
                     Intent intent = new Intent(DashBoardActivity.this, SuggestionActivity.class);
                     startActivity(intent);
 
-                } else if (i == 9) {
+                } else if (i == 8) {
                     Intent intent = new Intent(DashBoardActivity.this, DeliveryActivity.class);
                     startActivity(intent);
 
-                } else if (i == 10) {
+                } else if (i == 9) {
                     Intent intent = new Intent(DashBoardActivity.this, VisitorActivity.class);
                     startActivity(intent);
 
-                } else if (i == 11) {
+                } else if (i == 10) {
                     Intent intent = new Intent(DashBoardActivity.this, HouseActivity.class);
                     startActivity(intent);
 
-                } else if (i == 12) {
+                } else if (i == 11) {
                     Intent intent = new Intent(DashBoardActivity.this, PlaceActivity.class);
                     startActivity(intent);
                 }

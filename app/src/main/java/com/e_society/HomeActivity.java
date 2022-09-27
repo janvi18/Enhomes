@@ -8,17 +8,17 @@ import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
 
-    TextView tv_email;
+    TextView tv_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        tv_email = findViewById(R.id.tv_email);
+        tv_data = findViewById(R.id.tv_data);
 
         Intent i = getIntent();
-        String strEmail = i.getStringExtra("KEY_EMAIL");
+        String strData = i.getStringExtra("KEY_DATA");
 
-        tv_email.setText("Email : "+ strEmail);
+        tv_data.setText("DEETS : "+ strData);
     }
 }

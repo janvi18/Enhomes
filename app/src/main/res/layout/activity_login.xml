@@ -80,7 +80,7 @@
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/email"
+            android:layout_below="@id/edt_email"
             android:layout_marginTop="20dp"
             android:background="@drawable/edtuix_bg"
             android:drawableLeft="@drawable/ic_key"

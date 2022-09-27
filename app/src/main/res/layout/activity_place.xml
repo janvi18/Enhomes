@@ -4,17 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EventActivity"
+    android:background="#FFF0FF"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="20dp"
+    tools:context=".PlaceActivity">
 
     <TextView
+        android:id="@+id/tv_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Place"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Place"
+        android:textColor="#B765A6"
         android:textSize="30sp"
-        android:textColor="@color/purple_500"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
+
+
+    <EditText
+        android:id="@+id/edt_placeDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Place Details"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textSize="20sp" />
+
+    <android.widget.Button
+        android:id="@+id/btn_addPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="#B765A6"
+        android:padding="10dp"
+        android:text="Add Place"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 </LinearLayout>

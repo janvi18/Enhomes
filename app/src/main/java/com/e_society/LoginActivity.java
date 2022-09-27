@@ -4,11 +4,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.e_society.utils.Utils;
+import com.e_society.utils.VolleySingleton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this,SignupActivity.class);
+                Intent i = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(i);
             }
         });
@@ -40,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String strEmail = edt_email.getText().toString();
                 String strPassword = edt_password.getText().toString();
+
 
                 if (strEmail.equals("")) {
                     Toast.makeText(LoginActivity.this, "Enter Your Email", Toast.LENGTH_SHORT).show();
@@ -52,12 +70,43 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(LoginActivity.this, "Email is " + strEmail, Toast.LENGTH_LONG).show();
 
-                    Intent i = new Intent(LoginActivity.this, DashBoardActivity.class);
-                    i.putExtra("KEY_EMAIL", strEmail);
-                    startActivity(i);
+                    loginApi(strEmail, strPassword);
+
                 }
 
             }
         });
     }
+
+    private void loginApi(String strEmail, String strPassword) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.LOGIN_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Log.e("Login Response ===", "onResponse: " + response);
+                Intent i = new Intent(LoginActivity.this, DashBoardActivity.class);
+                startActivity(i);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("email", strEmail);
+                map.put("password", strPassword);
+
+                return map;
+            }
+
+        };
+
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+
+    }
 }
+
+
