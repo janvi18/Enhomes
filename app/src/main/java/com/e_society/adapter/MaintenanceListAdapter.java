@@ -60,7 +60,8 @@ public class MaintenanceListAdapter extends BaseAdapter {
         TextView tvData = view.findViewById(R.id.tv_data);
 
         tvData.setText(maintenanceLangModelArrayList.get(position).get_id() + " " + maintenanceLangModelArrayList.get(position).getHouse() + " " + maintenanceLangModelArrayList.get(position).getCreationDate()
-                + " " + maintenanceLangModelArrayList.get(position).getMonth() + " " + maintenanceLangModelArrayList.get(position).getMaintenanceAmount() + " "
+                + " " + maintenanceLangModelArrayList.get(position).getHouse()+
+                " " + maintenanceLangModelArrayList.get(position).getMonth() + " " + maintenanceLangModelArrayList.get(position).getMaintenanceAmount() + " "
                 + maintenanceLangModelArrayList.get(position).getMaintenancePaid() + " " + maintenanceLangModelArrayList.get(position).getPaymentDate() +
                 maintenanceLangModelArrayList.get(position).getLastDate() + maintenanceLangModelArrayList.get(position).getPenalty());
 
@@ -76,6 +77,7 @@ public class MaintenanceListAdapter extends BaseAdapter {
 
                 Intent intent = new Intent(context, MaintenanceUpdateActivity.class);
                 intent.putExtra("MAINTENANCE_ID", id);
+                intent.putExtra("MAINTENANCE_HOUSE", maintenanceLangModelArrayList.get(position).getHouse());
                 intent.putExtra("MAINTENANCE_AMOUNT", maintenanceLangModelArrayList.get(position).getMaintenanceAmount());
                 intent.putExtra("PENALTY", maintenanceLangModelArrayList.get(position).getPenalty());
                 intent.putExtra("CREATION_DATE", maintenanceLangModelArrayList.get(position).getCreationDate());
@@ -90,55 +92,25 @@ public class MaintenanceListAdapter extends BaseAdapter {
         imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = maintenanceLangModelArrayList.get(position).get_id();
-                Log.e("id in delete: ", "" + id);
-                deleteAPI(id);
+                String id1 = maintenanceLangModelArrayList.get(position).get_id();
+                Log.e("id in edit: ", id1);
+
+
+                Intent intent = new Intent(context, MaintenanceUpdateActivity.class);
+                intent.putExtra("MAINTENANCE_ID", id1);
+                intent.putExtra("MAINTENANCE_HOUSE", maintenanceLangModelArrayList.get(position).getHouse());
+                intent.putExtra("MAINTENANCE_AMOUNT", maintenanceLangModelArrayList.get(position).getMaintenanceAmount());
+                intent.putExtra("PENALTY", maintenanceLangModelArrayList.get(position).getPenalty());
+                intent.putExtra("CREATION_DATE", maintenanceLangModelArrayList.get(position).getCreationDate());
+                intent.putExtra("PAYMENT_DATE", maintenanceLangModelArrayList.get(position).getPaymentDate());
+                intent.putExtra("LAST_DATE", maintenanceLangModelArrayList.get(position).getLastDate());
+
+                context.startActivity(intent);
             }
         });
 
-    /*    tvData.setText(maintenanceLangModelArrayList.get(position).getMaintenanceAmount() + " " + maintenanceLangModelArrayList.get(position).getPenalty() + " "
-                + maintenanceLangModelArrayList.get(position).getCreationDate() + " " + maintenanceLangModelArrayList.get(position).getPaymentDate() +
-                " " + maintenanceLangModelArrayList.get(position).getLastDate());
-*/
 
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String id=maintenanceLangModelArrayList.get(position).maintenanceId;
-//                Intent i = new Intent()
-//            }
-//        });
         return view;
     }
 
-    private void deleteAPI(String id) {
-
-        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Utils.MAINTENANCE_URL,
-                new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.e("api calling done", response);
-                maintenanceLangModelArrayList.remove(id);
-notifyDataSetChanged();
-               // maintenanceLangModelArrayList.remove(i);
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> hashMap = new HashMap<>();
-                hashMap.put("maintenanceId", id);
-                return hashMap;
-            }
-        };
-        VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
-
-    }
 }

@@ -85,12 +85,12 @@ public class MaintenanceActivity extends AppCompatActivity {
         date = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
-
+       // 62c719e779c57cdc144f77d2
         //Normal code
         btnMaintenance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String strHouseId=edtHouseId.getText().toString();
+                String strHouseId=edtHouseId.getText().toString();
                 String strMaintenanceAmount = edtMaintenanceAmount.getText().toString();
                 String strPenalty = edtPenalty.getText().toString();
                 String strCreateDate = tvDisDate.getText().toString();
@@ -104,7 +104,7 @@ public class MaintenanceActivity extends AppCompatActivity {
                 Log.e("Last: ", strLastDate);
 
                 String strRadioButton = radioButton.getText().toString();
-                apiCall("strHouseId", strMaintenanceMonth, strPenalty, strCreateDate, strPaymentDate, strLastDate, strRadioButton, strMaintenanceAmount);
+                apiCall(strHouseId, strMaintenanceMonth, strPenalty, strCreateDate, strPaymentDate, strLastDate, strRadioButton, strMaintenanceAmount);
             }
         });
 

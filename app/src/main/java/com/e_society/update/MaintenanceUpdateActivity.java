@@ -45,7 +45,7 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
 
 
     EditText edtHouseId, edtMaintenanceAmount, edtPenalty;
-    Button btnMaintenance;
+    Button btnMaintenance,btnDeleteMaintenance;
     String strMaintenanceMonth;
 
     RadioGroup radioGroup;
@@ -73,6 +73,7 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
         tvDisDate = findViewById(R.id.tv_create);
         tvPayDate = findViewById(R.id.tv_payDate);
         tvLastDate = findViewById(R.id.tv_lastDate);
+        btnDeleteMaintenance = findViewById(R.id.btn_delete_maintenance);
 
         //radio Button
         radioGroup = findViewById(R.id.radio_grp);
@@ -96,6 +97,9 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
         String strPaymentDate = i.getStringExtra("PAYMENT_DATE");
         String strLastDate = i.getStringExtra("LAST_DATE");
         String maintenanceId = i.getStringExtra("MAINTENANCE_ID");
+        String maintenanceHouse = i.getStringExtra("MAINTENANCE_HOUSE");
+
+edtHouseId.setText(maintenanceHouse);
 
         //set text
         MaintenanceLangModel maintenanceLangModel = new MaintenanceLangModel();
@@ -107,7 +111,13 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
 
         //normal code
         btnMaintenance.setText("Update Maintenance");
-
+        btnDeleteMaintenance.setVisibility(View.VISIBLE);
+        btnDeleteMaintenance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteAPI(maintenanceId);
+            }
+        });
         btnMaintenance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,6 +236,37 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
+    }
+// 6336d0a385dc006ba7319c3b
+    private void deleteAPI(String id1) {
+
+        Log.e("TAG****", "deleteAPI UPdate "+id1);
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Utils.MAINTENANCE_URL, new Response.Listener<String>() {
+            @Override
+
+            public void onResponse(String response) {
+                Log.e("api calling done", response);
+                Intent intent = new Intent(MaintenanceUpdateActivity.this, MaintenanceDisplayActivity.class);
+                startActivity(intent);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> hashMap = new HashMap<>();
+                hashMap.put("maintenanceId", id1);
+                return hashMap;
+
+
+            }
+        };
+        VolleySingleton.getInstance(MaintenanceUpdateActivity.this).addToRequestQueue(stringRequest);
+
 
     }
 

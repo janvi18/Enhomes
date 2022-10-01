@@ -15,6 +15,12 @@
         android:theme="@style/Theme.ESociety"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".update.PlaceUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.PlaceDisplayActivity"
+            android:exported="false" />
+        <activity
             android:name=".update.MaintenanceUpdateActivity"
             android:exported="false" />
 

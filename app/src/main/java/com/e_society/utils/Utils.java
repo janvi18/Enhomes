@@ -4,7 +4,7 @@ package com.e_society.utils;
 public class Utils {
 
     // public static String MAIN_URL = "https://enhomes.herokuapp.com/";
-    public static String MAIN_URL = "http://192.168.1.46:3000/";
+    public static String MAIN_URL = "http://192.168.1.100:3000/";
     public static String SIGNUP_URL = MAIN_URL + "user";
     public static String LOGIN_URL = MAIN_URL + "login";
     public static String ROLE_URL = MAIN_URL + "role";
