@@ -3,9 +3,10 @@ package com.e_society.model;
 public class LangModel {
     String strData;
     int imgData;
+
     public LangModel(String strData, int imgData) {
-        this.strData=strData;
-        this.imgData=imgData;
+        this.strData = strData;
+        this.imgData = imgData;
     }
 
     public String getStrData() {

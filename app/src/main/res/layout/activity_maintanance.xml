@@ -87,43 +87,8 @@
         android:textColorHint="#000"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/et_paid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Maintenance Paid"
-        android:imeOptions="actionNext"
-        android:singleLine="true"
-        android:textColor="#000"
-        android:textColorHint="#000"
-        android:textSize="20sp" />
 
-    <RadioGroup
-        android:id="@+id/radio_grp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/paid_yes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="true"
-            android:textColor="#000"
-            android:textSize="20sp" />
-
-        <RadioButton
-            android:id="@+id/paid_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="false"
-            android:textColor="#000"
-            android:textSize="20sp" />
-
-    </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"

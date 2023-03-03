@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_dash"
             android:layout_below="@id/menuIcon"
-            android:text="Dashboard"
+            android:text="User Dashboard"
             android:textColor="#fff"
             android:textSize="30sp"
             android:layout_marginTop="10dp"
@@ -37,12 +37,12 @@
             android:id="@+id/profile_image"
             android:layout_width="80dp"
             android:layout_height="84dp"
-            android:src="@drawable/enhomes"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/enhomes_logo"
             app:civ_border_color="#fff"
             app:civ_border_width="2dp"
-            app:civ_circle_background_color="#fff"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"/>
+            app:civ_circle_background_color="#fff" />
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"

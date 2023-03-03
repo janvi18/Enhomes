@@ -45,10 +45,10 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
 
 
     EditText edtHouseId, edtMaintenanceAmount, edtPenalty;
-    Button btnMaintenance,btnDeleteMaintenance;
+    Button btnMaintenance, btnDeleteMaintenance;
     String strMaintenanceMonth;
 
-    RadioGroup radioGroup;
+//    RadioGroup radioGroup;
     Spinner spinnerMonth;
     String strMonths[] = {"Select a Month", "January", "February", "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December"};
@@ -75,8 +75,8 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
         tvLastDate = findViewById(R.id.tv_lastDate);
         btnDeleteMaintenance = findViewById(R.id.btn_delete_maintenance);
 
-        //radio Button
-        radioGroup = findViewById(R.id.radio_grp);
+//        //radio Button
+//        radioGroup = findViewById(R.id.radio_grp);
 
         //Date :- creationDate,paymentDate,lastDate
         btnDate = findViewById(R.id.btn_date);
@@ -99,7 +99,7 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
         String maintenanceId = i.getStringExtra("MAINTENANCE_ID");
         String maintenanceHouse = i.getStringExtra("MAINTENANCE_HOUSE");
 
-edtHouseId.setText(maintenanceHouse);
+        edtHouseId.setText(maintenanceHouse);
 
         //set text
         MaintenanceLangModel maintenanceLangModel = new MaintenanceLangModel();
@@ -115,6 +115,7 @@ edtHouseId.setText(maintenanceHouse);
         btnDeleteMaintenance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 deleteAPI(maintenanceId);
             }
         });
@@ -127,15 +128,15 @@ edtHouseId.setText(maintenanceHouse);
                 String strCreateDate = tvDisDate.getText().toString();
                 String strPaymentDate = tvPayDate.getText().toString();
                 String strLastDate = tvLastDate.getText().toString();
-                int id = radioGroup.getCheckedRadioButtonId();
-                RadioButton radioButton = findViewById(id);
+//                int id = radioGroup.getCheckedRadioButtonId();
+//                RadioButton radioButton = findViewById(id);
 
                 Log.e("Create: ", strCreateDate);
                 Log.e("Payment: ", strPaymentDate);
                 Log.e("Last: ", strLastDate);
 
-                String strRadioButton = radioButton.getText().toString();
-                apiCall(maintenanceId, strHouseId, strMaintenanceMonth, strPenalty, strCreateDate, strPaymentDate, strLastDate, strRadioButton, strMaintenanceAmount);
+//                String strRadioButton = radioButton.getText().toString();
+                apiCall(maintenanceId, strHouseId, strMaintenanceMonth, strPenalty, strCreateDate, strPaymentDate, strLastDate, strMaintenanceAmount);
 
             }
         });
@@ -238,11 +239,12 @@ edtHouseId.setText(maintenanceHouse);
         });
 
     }
-// 6336d0a385dc006ba7319c3b
+
+    // 6336d0a385dc006ba7319c3b
     private void deleteAPI(String id1) {
 
-        Log.e("TAG****", "deleteAPI UPdate "+id1);
-        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Utils.MAINTENANCE_URL, new Response.Listener<String>() {
+        Log.e("TAG****", "deleteAPI Update " + id1);
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Utils.MAINTENANCE_URL + "/" + id1, new Response.Listener<String>() {
             @Override
 
             public void onResponse(String response) {
@@ -270,7 +272,7 @@ edtHouseId.setText(maintenanceHouse);
 
     }
 
-    private void apiCall(String id, String strHouseId, String strMaintenanceMonth, String strPenalty, String strCreateDate, String strPaymentDate, String strLastDate, String strRadioButton, String strMaintenanceAmount) {
+    private void apiCall(String id, String strHouseId, String strMaintenanceMonth, String strPenalty, String strCreateDate, String strPaymentDate, String strLastDate , String strMaintenanceAmount) {
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, Utils.MAINTENANCE_URL, new Response.Listener<String>() {
             @Override
 
@@ -292,7 +294,7 @@ edtHouseId.setText(maintenanceHouse);
                 hashMap.put("creationDate", strCreateDate);
                 hashMap.put("month", strMaintenanceMonth);
                 hashMap.put("maintenanceAmount", strMaintenanceAmount);
-                hashMap.put("maintenancePaid", strRadioButton);
+//                hashMap.put("maintenancePaid", strRadioButton);
                 hashMap.put("paymentDate", strPaymentDate);
                 hashMap.put("lastDate", strLastDate);
                 hashMap.put("penalty", strPenalty);

@@ -15,16 +15,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.e_society.MaintenanceActivity;
 import com.e_society.R;
 import com.e_society.adapter.MaintenanceListAdapter;
-import com.e_society.model.MaintenanceLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
+import com.e_society.model.MaintenanceLangModel;
+
+import java.util.ArrayList;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 
 public class MaintenanceDisplayActivity extends AppCompatActivity {
 
@@ -46,9 +48,7 @@ public class MaintenanceDisplayActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         MaintenanceApi();
-
     }
 
     private void MaintenanceApi() {
@@ -57,20 +57,23 @@ public class MaintenanceDisplayActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.MAINTENANCE_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("TAG", "onResponse:"+response );
+                Log.e("TAG", "onResponse:" + response);
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
+
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                        JSONObject house = jsonObject1.getJSONObject("house");
-                        String houseId = house.getString("_id");
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("house");
+                        String houseId = jsonObject2.getString("_id");
+
                         String strMaintenanceId = jsonObject1.getString("_id");
                         String strCreationDate = jsonObject1.getString("creationDate");
+//                        Log.e("month:",strMonth);
                         String strMonth = jsonObject1.getString("month");
                         String strMaintenanceAmount = jsonObject1.getString("maintenanceAmount");
-                        String strPaid = jsonObject1.getString("maintenancePaid");
+//                        String strPaid = jsonObject1.getString("maintenancePaid");
                         String strPayDate = jsonObject1.getString("paymentDate");
                         String strLastDate = jsonObject1.getString("lastDate");
                         String strPenalty = jsonObject1.getString("penalty");
@@ -81,7 +84,7 @@ public class MaintenanceDisplayActivity extends AppCompatActivity {
                         maintenanceLangModel.setMonth(strMonth);
                         maintenanceLangModel.setHouse(houseId);
                         maintenanceLangModel.setMaintenanceAmount(strMaintenanceAmount);
-                        maintenanceLangModel.setMaintenancePaid(strPaid);
+//                        maintenanceLangModel.setMaintenancePaid(strPaid);
                         maintenanceLangModel.setPaymentDate(strPayDate);
                         maintenanceLangModel.setLastDate(strLastDate);
                         maintenanceLangModel.setPenalty(strPenalty);
@@ -103,6 +106,6 @@ public class MaintenanceDisplayActivity extends AppCompatActivity {
             }
         });
 
-        VolleySingleton.getInstance(MaintenanceDisplayActivity.this).addToRequestQueue(stringRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }
 }

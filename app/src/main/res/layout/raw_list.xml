@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:text="Android"
         android:textColor="#000"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <LinearLayout

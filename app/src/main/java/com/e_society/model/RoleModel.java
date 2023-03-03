@@ -1,15 +1,14 @@
 package com.e_society.model;
 
 public class RoleModel {
-    int roleId;
-    String roleName;
+    String _id, roleName;
 
-    public int getRoleId() {
-        return roleId;
+    public String get_id() {
+        return _id;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getRoleName() {
@@ -19,4 +18,5 @@ public class RoleModel {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
+
 }

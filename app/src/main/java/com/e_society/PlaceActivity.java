@@ -14,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.display.PlaceDisplayActivity;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 
@@ -22,7 +23,7 @@ import java.util.Map;
 
 public class PlaceActivity extends AppCompatActivity {
 
-    EditText edtPlaceDeets;
+    EditText edtPlaceDetails;
     Button btnAdd;
 
     @Override
@@ -30,15 +31,22 @@ public class PlaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
 
-        edtPlaceDeets = findViewById(R.id.edt_placeDetails);
+        edtPlaceDetails = findViewById(R.id.edt_placeDetails);
         btnAdd = findViewById(R.id.btn_addPlace);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String strPlaceDeets = edtPlaceDeets.getText().toString();
-
-                placeApi(strPlaceDeets);
+                String strPlaceDetails = edtPlaceDetails.getText().toString();
+                if (strPlaceDetails.length() == 0) {
+                    edtPlaceDetails.requestFocus();
+                    edtPlaceDetails.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strPlaceDetails.matches("[a-zA-Z ]+")) {
+                    edtPlaceDetails.requestFocus();
+                    edtPlaceDetails.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+                } else {
+                    placeApi(strPlaceDetails);
+                }
             }
         });
     }
@@ -49,7 +57,7 @@ public class PlaceActivity extends AppCompatActivity {
             public void onResponse(String response) {
 
                 Log.e("Place Response ===", "onResponse: " + response);
-                Intent i = new Intent(PlaceActivity.this, HomeActivity.class);
+                Intent i = new Intent(PlaceActivity.this, PlaceDisplayActivity.class);
                 startActivity(i);
             }
         }, new Response.ErrorListener() {

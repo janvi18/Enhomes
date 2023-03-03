@@ -5,94 +5,173 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.e_society.display.EventDisplayActivity;
+import com.e_society.utils.Utils;
+import com.e_society.utils.VolleySingleton;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EventActivity extends AppCompatActivity {
 
-    EditText edtEventDate, edtEndDate, edtEventDetails, edtRent;
+    EditText edtEventDetails, edtRent, edtPlaceId, edtHouseId;
     Button btnAddEvent;
+    TextView tvDate, tvEndDate;
+    ImageButton btnDate, btnEndDate;
 
-    DatePickerDialog.OnDateSetListener setListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
-        edtEventDate = findViewById(R.id.edt_eventDate);
-        edtEndDate = findViewById(R.id.edt_eventEndDate);
+        tvDate = findViewById(R.id.tv_date);
+        tvEndDate = findViewById(R.id.tv_eventEndDate);
+
         edtEventDetails = findViewById(R.id.edt_eventDetail);
         edtRent = findViewById(R.id.edt_rent);
+        edtHouseId = findViewById(R.id.edt_eHouseId);
+        edtPlaceId = findViewById(R.id.edt_ePlaceId);
 
+
+        //date
+        btnDate = findViewById(R.id.btn_date);
+        btnEndDate = findViewById(R.id.btn_endDate);
+        tvDate = findViewById(R.id.tv_date);
+        tvEndDate = findViewById(R.id.tv_eventEndDate);
+
+        Calendar calendar = Calendar.getInstance();
+        int date = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        btnDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(EventActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        CharSequence strDate = null;
+                        Time chosenDate = new Time();
+                        chosenDate.set(dayOfMonth, month, year);
+                        long dtDob = chosenDate.toMillis(true);
+
+                        strDate = DateFormat.format("yyyy/MM/dd", dtDob);
+
+                        //txtDate.setText(strDate);
+
+
+                        tvDate.setText(strDate);
+                    }
+                }, year, month, date);
+                datePickerDialog.show();
+            }
+        });
+
+        btnEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(EventActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        CharSequence strEndDate = null;
+                        Time chosenDate = new Time();
+                        chosenDate.set(dayOfMonth, month, year);
+                        long dtDob = chosenDate.toMillis(true);
+
+                        strEndDate = DateFormat.format("yyyy/MM/dd", dtDob);
+
+                        tvEndDate.setText(strEndDate);
+                    }
+                }, year, month, date);
+                datePickerDialog.show();
+            }
+        });
+
+
+        //add event
         btnAddEvent = findViewById(R.id.btn_event);
+
+
 
         btnAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String strDate = edtEventDate.getText().toString();
-                String strEndDate = edtEndDate.getText().toString();
+
+
+                String strHouseId = edtHouseId.getText().toString();
+                String strPlaceId = edtPlaceId.getText().toString();
+                String strDate = tvDate.getText().toString();
+                String strEndDate = tvEndDate.getText().toString();
                 String strEventDetails = edtEventDetails.getText().toString();
                 String strRent = edtRent.getText().toString();
 
-                Intent intent = new Intent(EventActivity.this, EventDisplayActivity.class);
 
-                intent.putExtra("eventDate", strDate);
-                intent.putExtra("eventEndDate", strEndDate);
-                intent.putExtra("eventDetails", strEventDetails);
-                intent.putExtra("rent", strRent);
+                apiCall(strHouseId, strPlaceId, strDate, strEndDate, strEventDetails, strRent);
+
+            }
+
+
+        });
+
+    }
+
+    private void apiCall(String strHouseId, String strPlaceId, String strDate, String strEndDate, String strEventDetails, String strRent) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.EVENT_URL, new Response.Listener<String>() {
+            @Override
+
+            public void onResponse(String response) {
+                Log.e("api calling done", response);
+
+                Intent intent = new Intent(EventActivity.this, EventDisplayActivity.class);
 
                 startActivity(intent);
             }
-        });
-
-
-        Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-
-        edtEventDate.setOnClickListener(new View.OnClickListener() {
+        }, new Response.ErrorListener() {
             @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        EventActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        month = month + 1;
-                        String date = day + "/" + month + "/" + year;
-                        edtEventDate.setText(date);
-                    }
-                }, year, month, day);
-                datePickerDialog.show();
+            public void onErrorResponse(VolleyError error) {
 
             }
-        });
-        edtEndDate.setOnClickListener(new View.OnClickListener() {
+
+        }) {
             @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        EventActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        month = month + 1;
-                        String date = day + "/" + month + "/" + year;
-                        edtEndDate.setText(date);
-                    }
-                }, year, month, day);
-                datePickerDialog.show();
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> hashMap = new HashMap<>();
+                hashMap.put("house", strHouseId);
+                hashMap.put("place", strPlaceId);
+                hashMap.put("eventDate", strDate);
+                hashMap.put("eventEndDate", strEndDate);
+                hashMap.put("eventDetails", strEventDetails);
+                hashMap.put("rent", strRent);
+                return hashMap;
 
             }
-        });
+        };
+        VolleySingleton.getInstance(EventActivity.this).addToRequestQueue(stringRequest);
+
     }
 }
+
+
+
+
+
 
 
 

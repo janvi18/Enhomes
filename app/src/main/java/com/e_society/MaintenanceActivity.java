@@ -29,14 +29,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.display.MaintenanceDisplayActivity;
+import com.e_society.utils.Utils;
+import com.e_society.utils.VolleySingleton;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.e_society.display.MaintenanceDisplayActivity;
-import com.e_society.utils.Utils;
-import com.e_society.utils.VolleySingleton;
 
 
 public class MaintenanceActivity extends AppCompatActivity {
@@ -45,7 +44,7 @@ public class MaintenanceActivity extends AppCompatActivity {
     Button btnMaintenance;
     String strMaintenanceMonth;
 
-    RadioGroup radioGroup;
+//    RadioGroup radioGroup;
     Spinner spinnerMonth;
     String strMonths[] = {"Select a Month", "January", "February", "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December"};
@@ -69,8 +68,8 @@ public class MaintenanceActivity extends AppCompatActivity {
         //spinner variable
         spinnerMonth = findViewById(R.id.spinner_month);
 
-        //radio button
-        radioGroup = findViewById(R.id.radio_grp);
+//        //radio button
+//        radioGroup = findViewById(R.id.radio_grp);
 
         //date variables
         tvDisDate = findViewById(R.id.tv_create);
@@ -85,7 +84,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         date = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
-       // 62c719e779c57cdc144f77d2
+
         //Normal code
         btnMaintenance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,15 +95,31 @@ public class MaintenanceActivity extends AppCompatActivity {
                 String strCreateDate = tvDisDate.getText().toString();
                 String strPaymentDate = tvPayDate.getText().toString();
                 String strLastDate = tvLastDate.getText().toString();
-                int id = radioGroup.getCheckedRadioButtonId();
-                RadioButton radioButton = findViewById(id);
-
-                Log.e("Create: ", strCreateDate);
-                Log.e("Payment: ", strPaymentDate);
-                Log.e("Last: ", strLastDate);
-
-                String strRadioButton = radioButton.getText().toString();
-                apiCall(strHouseId, strMaintenanceMonth, strPenalty, strCreateDate, strPaymentDate, strLastDate, strRadioButton, strMaintenanceAmount);
+//                int id = radioGroup.getCheckedRadioButtonId();
+//                RadioButton radioButton = findViewById(id);
+//
+//                String strRadioButton = radioButton.getText().toString();
+                if (strCreateDate.length() == 0) {
+                    tvDisDate.requestFocus();
+                    tvDisDate.setError("FIELD CANNOT BE EMPTY");
+                } else if (strMaintenanceAmount.length() == 0) {
+                    edtMaintenanceAmount.requestFocus();
+                    edtMaintenanceAmount.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strMaintenanceAmount.matches("^[0-9]{1,10}$")) {
+                    edtMaintenanceAmount.requestFocus();
+                    edtMaintenanceAmount.setError("ENTER ONLY DIGITS");
+                } else if (strPaymentDate.length() == 0) {
+                    tvPayDate.requestFocus();
+                    tvPayDate.setError("FIELD CANNOT BE EMPTY");
+                } else if (strLastDate.length() == 0) {
+                    tvLastDate.requestFocus();
+                    tvLastDate.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strPenalty.matches("^[0-9]{1,10}$")) {
+                    edtPenalty.requestFocus();
+                    edtPenalty.setError("ENTER ONLY DIGITS");
+                } else {
+                    apiCall(strHouseId, strCreateDate, strMaintenanceMonth, strMaintenanceAmount, strPaymentDate, strLastDate, strPenalty);
+                }
             }
         });
 
@@ -128,6 +143,7 @@ public class MaintenanceActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 strMaintenanceMonth = strMonths[position];
+                Log.e("month:",strMaintenanceMonth);
             }
 
             @Override
@@ -157,7 +173,7 @@ public class MaintenanceActivity extends AppCompatActivity {
 
                         tvDisDate.setText(strDate);
                     }
-                }, date, month, year);
+                }, year, month, date);
                 datePickerDialog.show();
             }
         });
@@ -171,6 +187,10 @@ public class MaintenanceActivity extends AppCompatActivity {
                         CharSequence strDate = null;
                         Time chosenDate = new Time();
                         chosenDate.set(dayOfMonth, month, year);
+                        Log.e("year: ", String.valueOf(year));
+                        Log.e("month: ", String.valueOf(month));
+                        Log.e("day: ", String.valueOf(dayOfMonth));
+
                         long dtDob = chosenDate.toMillis(true);
 
                         strDate = DateFormat.format("yyyy/MM/dd", dtDob);
@@ -178,7 +198,7 @@ public class MaintenanceActivity extends AppCompatActivity {
                         tvPayDate.setText(strDate);
 
                     }
-                }, date, month, year);
+                }, year, month, date);
                 datePickerDialog.show();
             }
         });
@@ -192,6 +212,10 @@ public class MaintenanceActivity extends AppCompatActivity {
                         CharSequence strDate = null;
                         Time chosenDate = new Time();
                         chosenDate.set(dayOfMonth, month, year);
+                        Log.e("year: ", String.valueOf(year));
+                        Log.e("month: ", String.valueOf(month));
+                        Log.e("day: ", String.valueOf(dayOfMonth));
+
                         long dtDob = chosenDate.toMillis(true);
 
                         strDate = DateFormat.format("yyyy/MM/dd", dtDob);
@@ -199,7 +223,7 @@ public class MaintenanceActivity extends AppCompatActivity {
                         tvLastDate.setText(strDate);
 
                     }
-                }, date, month, year);
+                }, year, month, date);
                 datePickerDialog.show();
             }
         });
@@ -207,7 +231,7 @@ public class MaintenanceActivity extends AppCompatActivity {
     }
 
     //apicall method
-    private void apiCall(String strHouseId, String strMaintenanceMonth, String strPenalty, String strCreateDate, String strPaymentDate, String strLastDate, String strRadioButton, String strMaintenanceAmount) {
+    private void apiCall(String strHouseId, String strCreateDate, String strMaintenanceMonth, String strMaintenanceAmount, String strPaymentDate, String strLastDate, String strPenalty) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.MAINTENANCE_URL, new Response.Listener<String>() {
             @Override
 
@@ -229,7 +253,7 @@ public class MaintenanceActivity extends AppCompatActivity {
                 hashMap.put("creationDate", strCreateDate);
                 hashMap.put("month", strMaintenanceMonth);
                 hashMap.put("maintenanceAmount", strMaintenanceAmount);
-                hashMap.put("maintenancePaid", strRadioButton);
+//                hashMap.put("maintenancePaid", strRadioButton);
                 hashMap.put("paymentDate", strPaymentDate);
                 hashMap.put("lastDate", strLastDate);
                 hashMap.put("penalty", strPenalty);

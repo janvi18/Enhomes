@@ -14,8 +14,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.display.HouseDisplayActivity;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
+//import com.e_society.display.HouseDisplayActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,14 +31,13 @@ public class HouseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_house);
-        edtDeets = findViewById(R.id.edt_deets);
+        edtDeets = findViewById(R.id.edt_House_Deets);
         btnAdd = findViewById(R.id.btn_addHouse);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String strHouseDeets = edtDeets.getText().toString();
-
                 houseApi(strHouseDeets);
             }
         });
@@ -47,8 +48,8 @@ public class HouseActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
 
-                Log.e("Place Response ===", "onResponse: " + response);
-                Intent i = new Intent(HouseActivity.this, HomeActivity.class);
+                Log.e("House Response ===", "onResponse: " + response);
+                Intent i = new Intent(HouseActivity.this, HouseDisplayActivity.class);
                 startActivity(i);
             }
         }, new Response.ErrorListener() {

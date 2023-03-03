@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,10 +19,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(LoginActivity.this, "Email is " + strEmail, Toast.LENGTH_LONG).show();
 
+                    Log.e(strEmail, strPassword);
                     loginApi(strEmail, strPassword);
 
                 }

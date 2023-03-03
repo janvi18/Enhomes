@@ -7,25 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.e_society.update.MaintenanceUpdateActivity;
 import com.e_society.R;
-import com.e_society.display.MaintenanceDisplayActivity;
 import com.e_society.model.MaintenanceLangModel;
-import com.e_society.utils.Utils;
-import com.e_society.utils.VolleySingleton;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MaintenanceListAdapter extends BaseAdapter {
     Context context;
@@ -38,16 +27,19 @@ public class MaintenanceListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+
         return maintenanceLangModelArrayList.size();
     }
 
     @Override
     public Object getItem(int position) {
+
         return maintenanceLangModelArrayList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
+
         return position;
     }
 
@@ -59,11 +51,14 @@ public class MaintenanceListAdapter extends BaseAdapter {
 
         TextView tvData = view.findViewById(R.id.tv_data);
 
-        tvData.setText(maintenanceLangModelArrayList.get(position).get_id() + " " + maintenanceLangModelArrayList.get(position).getHouse() + " " + maintenanceLangModelArrayList.get(position).getCreationDate()
-                + " " + maintenanceLangModelArrayList.get(position).getHouse()+
-                " " + maintenanceLangModelArrayList.get(position).getMonth() + " " + maintenanceLangModelArrayList.get(position).getMaintenanceAmount() + " "
-                + maintenanceLangModelArrayList.get(position).getMaintenancePaid() + " " + maintenanceLangModelArrayList.get(position).getPaymentDate() +
-                maintenanceLangModelArrayList.get(position).getLastDate() + maintenanceLangModelArrayList.get(position).getPenalty());
+        tvData.setText(maintenanceLangModelArrayList.get(position).get_id() + " " +
+                maintenanceLangModelArrayList.get(position).getHouse() + " " +
+                maintenanceLangModelArrayList.get(position).getCreationDate() + " " +
+                maintenanceLangModelArrayList.get(position).getMonth() + " " +
+                maintenanceLangModelArrayList.get(position).getMaintenanceAmount() + " "+
+                maintenanceLangModelArrayList.get(position).getPaymentDate() +
+                maintenanceLangModelArrayList.get(position).getLastDate() +
+                maintenanceLangModelArrayList.get(position).getPenalty());
 
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);
@@ -95,7 +90,6 @@ public class MaintenanceListAdapter extends BaseAdapter {
                 String id1 = maintenanceLangModelArrayList.get(position).get_id();
                 Log.e("id in edit: ", id1);
 
-
                 Intent intent = new Intent(context, MaintenanceUpdateActivity.class);
                 intent.putExtra("MAINTENANCE_ID", id1);
                 intent.putExtra("MAINTENANCE_HOUSE", maintenanceLangModelArrayList.get(position).getHouse());
@@ -108,7 +102,6 @@ public class MaintenanceListAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
-
 
         return view;
     }

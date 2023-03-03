@@ -15,6 +15,48 @@
         android:theme="@style/Theme.ESociety"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".display.UserDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.NonMemberDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.MemberDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.EventUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EventActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserDashBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.EventDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.RoleUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.RoleDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MemberActivity"
+            android:exported="false" />
+        <activity
+            android:name=".display.StaffDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NonMemberActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.HouseUpdateActivity"
+            android:exported="false" />
+        <activity
             android:name=".update.PlaceUpdateActivity"
             android:exported="false" />
         <activity
@@ -33,7 +75,7 @@
         </service>
 
         <activity
-            android:name=".display.EventDisplayActivity"
+            android:name=".SecurityDashboardActivity"
             android:exported="false" />
         <activity
             android:name=".display.HouseDisplayActivity"
@@ -48,43 +90,19 @@
             android:name=".RoleActivity"
             android:exported="false" />
         <activity
-            android:name=".DisplayActivity"
-            android:exported="false" />
-        <activity
             android:name=".HouseActivity"
             android:exported="false" />
         <activity
             android:name=".PlaceActivity"
             android:exported="false" />
         <activity
-            android:name=".SuggestionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ComplaintActivity"
-            android:exported="false" />
-        <activity
             android:name=".StaffActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DeliveryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".VisitorActivity"
             android:exported="false" />
         <activity
             android:name=".MaintenanceActivity"
             android:exported="false" />
         <activity
-            android:name=".MemberActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EventActivity"
-            android:exported="false" />
-        <activity
             android:name=".DashBoardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".SignupActivity"
