@@ -1,7 +1,5 @@
 package com.e_society;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +10,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -29,14 +29,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MemberActivity extends AppCompatActivity {
-
-    EditText edtHouseId, edtMemberName, edtAge, edtGender, edtContactNo;
+    EditText edtHouseId, edtMemberName, edtAge, edtContactNo;
     TextView tv_dateOfBirth, tvGender;
-    RadioButton radioMale, radioFemale;
+
     ImageButton btnDate;
     Button addMember;
 
-    DatePickerDialog.OnDateSetListener setListener;
+    RadioGroup radioGroup;
 
     private int date;
     private int month;
@@ -54,8 +53,6 @@ public class MemberActivity extends AppCompatActivity {
         tv_dateOfBirth = findViewById(R.id.tv_dateOfBirth);
         tvGender = findViewById(R.id.tv_gender);
         edtContactNo = findViewById(R.id.edt_contactNo);
-        radioMale = findViewById(R.id.radio_male);
-        radioFemale = findViewById(R.id.radio_female);
         addMember = findViewById(R.id.btn_member);
         btnDate = findViewById(R.id.btn_memberDate);
 
@@ -88,30 +85,26 @@ public class MemberActivity extends AppCompatActivity {
                 String houseId = edtHouseId.getText().toString();
                 String memberName = edtMemberName.getText().toString();
                 String age = edtAge.getText().toString();
-                // String gn = edtGender.getText().toString();
                 String contactNumber = edtContactNo.getText().toString();
                 String dateOfBirth = tv_dateOfBirth.getText().toString();
 
-                Log.e("HouseId:", houseId);
-                Log.e("MemberName:", memberName);
-                Log.e("Age:", age);
-                Log.e("ContactNumber", contactNumber);
-                Log.e("DateOfBirth", dateOfBirth);
+//                int id = radioGroup.getCheckedRadioButtonId();
+//                RadioButton radioButton = findViewById(id);
+//                String strRadioButton = radioButton.getText().toString();
 
 
-                Intent intent = new Intent(MemberActivity.this, MemberDisplayActivity.class);
-
-                intent.putExtra("houseId", houseId);
-                intent.putExtra("memberName", memberName);
-                intent.putExtra("age", age);
-                // intent.putExtra("gender",gn);
-                intent.putExtra("contactNo.", contactNumber);
-                intent.putExtra("dateOfBirth", dateOfBirth);
+//                Intent intent = new Intent(memberLayout.this,MemberShowActivity.class);
+//
+//                intent.putExtra("houseId",houseId);
+//                intent.putExtra("memberName",memberName);
+//                intent.putExtra("age",age);
+//               // intent.putExtra("gender",gn);
+//                intent.putExtra("contactNo.",contactNumber);
+//                intent.putExtra("dateOfBirth",dateOfBirth);
 
                 apiCall(houseId, memberName, age, contactNumber, dateOfBirth);
 
 
-                startActivity(intent);
             }
         });
     }
@@ -138,12 +131,12 @@ public class MemberActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> hashMap = new HashMap<>();
-
                 hashMap.put("houseId", strHouseId);
                 hashMap.put("memberName", strMemberName);
                 hashMap.put("age", strAge);
                 hashMap.put("contactNo", strContactNumber);
                 hashMap.put("dateOfBirth", strDateOfBirt);
+              //  hashMap.put("gender", strRadioButton);
 
                 return hashMap;
 

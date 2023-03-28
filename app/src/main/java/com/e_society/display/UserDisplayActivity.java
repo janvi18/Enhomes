@@ -49,12 +49,12 @@ public class UserDisplayActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        UpdateUserApi();
+        DisplayUserApi();
     }
 
-    private void UpdateUserApi() {
+    private void DisplayUserApi() {
         ArrayList<UserLangModel> arrayList = new ArrayList<UserLangModel>();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.USER_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.SIGNUP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("TAG", "Display--onResponse:" + response);

@@ -155,7 +155,6 @@ public class SignupActivity extends AppCompatActivity {
 
 
     private void loadData(String strFname, String strLname, String strDob, String strAge, String strCn, String strEmail, String strPassword, String strRadioButton) {
-        Log.e("ContactNo == ", strCn);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.SIGNUP_URL, new Response.Listener<String>() {
             @Override

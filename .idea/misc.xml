@@ -56,12 +56,14 @@
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_suggestion.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_user.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_user_dash_board.xml" value="0.2526041666666667" />
-        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_user_display.xml" value="0.12760416666666666" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_user_display.xml" value="0.2" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_user_table.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_visitor.xml" value="0.2375" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/notification.xml" value="0.21481481481481482" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/raw_grid.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/raw_list.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/role_table.xml" value="0.17592592592592593" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/spinner.xml" value="0.2" />
       </map>
     </option>
   </component>

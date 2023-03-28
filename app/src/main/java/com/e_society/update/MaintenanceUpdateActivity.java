@@ -48,7 +48,7 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
     Button btnMaintenance, btnDeleteMaintenance;
     String strMaintenanceMonth;
 
-//    RadioGroup radioGroup;
+    RadioGroup radioGroup;
     Spinner spinnerMonth;
     String strMonths[] = {"Select a Month", "January", "February", "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December"};
@@ -66,7 +66,7 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maintanance);
 
         Intent i = getIntent();
-
+        spinnerMonth = findViewById(R.id.spinner_month);
         edtHouseId = findViewById(R.id.et_houseId);
         edtMaintenanceAmount = findViewById(R.id.et_amt);
         edtPenalty = findViewById(R.id.et_penalty);
@@ -94,10 +94,22 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
         String strMaintenanceAmount = i.getStringExtra("MAINTENANCE_AMOUNT");
         String strPenalty = i.getStringExtra("PENALTY");
         String strCreationDate = i.getStringExtra("CREATION_DATE");
+        String strSelMonth = i.getStringExtra("MONTH");
         String strPaymentDate = i.getStringExtra("PAYMENT_DATE");
         String strLastDate = i.getStringExtra("LAST_DATE");
         String maintenanceId = i.getStringExtra("MAINTENANCE_ID");
         String maintenanceHouse = i.getStringExtra("MAINTENANCE_HOUSE");
+
+        //spinner auto selection
+        Log.e("month: ", strSelMonth);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, strMonths);
+        int position = adapter.getPosition(strSelMonth);
+        spinnerMonth.post(new Runnable() {
+            @Override
+            public void run() {
+                spinnerMonth.setSelection(position);
+            }
+        });
 
         edtHouseId.setText(maintenanceHouse);
 
@@ -108,6 +120,7 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
         tvDisDate.setText(strCreationDate);
         tvPayDate.setText(strPaymentDate);
         tvLastDate.setText(strLastDate);
+        spinnerMonth.setSelection(7);
 
         //normal code
         btnMaintenance.setText("Update Maintenance");
@@ -128,8 +141,8 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
                 String strCreateDate = tvDisDate.getText().toString();
                 String strPaymentDate = tvPayDate.getText().toString();
                 String strLastDate = tvLastDate.getText().toString();
-//                int id = radioGroup.getCheckedRadioButtonId();
-//                RadioButton radioButton = findViewById(id);
+                int id = radioGroup.getCheckedRadioButtonId();
+                RadioButton radioButton = findViewById(id);
 
                 Log.e("Create: ", strCreateDate);
                 Log.e("Payment: ", strPaymentDate);
@@ -145,13 +158,14 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
         spinnerMonth = findViewById(R.id.spinner_month);
 
         ArrayAdapter<String> arrayAdapter = new
-                ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, strMonths) {
+                ArrayAdapter<String>(this, R.layout.spinner, strMonths) {
                     @Override
                     public View getDropDownView(int position, @Nullable View convertView,
                                                 @NonNull ViewGroup parent) {
 
                         TextView tvData = (TextView) super.getDropDownView(position, convertView, parent);
-                        tvData.setTextColor(Color.WHITE);
+
+                        tvData.setTextColor(Color.BLACK);
                         tvData.setTextSize(20);
                         return tvData;
                     }
@@ -272,7 +286,7 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
 
     }
 
-    private void apiCall(String id, String strHouseId, String strMaintenanceMonth, String strPenalty, String strCreateDate, String strPaymentDate, String strLastDate , String strMaintenanceAmount) {
+    private void apiCall(String id, String strHouseId, String strMaintenanceMonth, String strPenalty, String strCreateDate, String strPaymentDate, String strLastDate, String strMaintenanceAmount) {
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, Utils.MAINTENANCE_URL, new Response.Listener<String>() {
             @Override
 

@@ -70,11 +70,11 @@ public class NonMemberUpdateActivity extends AppCompatActivity {
         int id1 = radioGroup.getCheckedRadioButtonId();
         int id2 = radioGroup.getCheckedRadioButtonId();
         RadioButton radioButton = findViewById(id);
-        RadioButton pRadioButton = findViewById(id);
-        RadioButton sRadioButton = findViewById(id);
-        String strRadioButton = radioButton.getText().toString();
-        String strPRadioButton = radioButton.getText().toString();
-        String strSRadioButton = radioButton.getText().toString();
+        RadioButton pRadioButton = findViewById(id1);
+        RadioButton sRadioButton = findViewById(id2);
+//        String strRadioButton = radioButton.getText().toString();
+//        String strPRadioButton = radioButton.getText().toString();
+//        String strSRadioButton = radioButton.getText().toString();
 
         //set text
         EventLangModel eventLangModel = new EventLangModel();
@@ -89,12 +89,12 @@ public class NonMemberUpdateActivity extends AppCompatActivity {
 
                 String strHouseId = edtHouseId.getText().toString();
                 String strName = edtVisitorName.getText().toString();
-                String strradio = radioButton.getText().toString();
-                String strpradio = pRadioButton.getText().toString();
-                String strsradio = sRadioButton.getText().toString();
+//                String strradio = radioButton.getText().toString();
+//                String strpradio = pRadioButton.getText().toString();
+//                String strsradio = sRadioButton.getText().toString();
 
 
-                apiCall(strNonMemberId, strHouseId, strName, strradio, strpradio, strsradio);
+                apiCall(strNonMemberId, strHouseId, strName);
 
             }
         });
@@ -110,7 +110,7 @@ public class NonMemberUpdateActivity extends AppCompatActivity {
 
     }
 
-    private void apiCall(String strNonMemberId, String strHouseId, String strName, String strradio, String strpradio, String strsradio) {
+    private void apiCall(String strNonMemberId, String strHouseId, String strName) {
 
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, Utils.EVENT_URL, new Response.Listener<String>() {
             @Override
@@ -132,9 +132,9 @@ public class NonMemberUpdateActivity extends AppCompatActivity {
                 Log.e("id in update map:", strNonMemberId);
                 hashMap.put("nonMemberId", strNonMemberId);
                 hashMap.put("name", strName);
-                hashMap.put("isVisited", strradio);
-                hashMap.put("pickup", strpradio);
-                hashMap.put("status", strsradio);
+               // hashMap.put("isVisited", strRadioButton);
+//                hashMap.put("pickup", strPRadioButton);
+//                hashMap.put("status", strSRadioButton);
 
                 return hashMap;
 

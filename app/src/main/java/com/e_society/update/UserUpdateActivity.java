@@ -42,6 +42,7 @@ public class UserUpdateActivity extends AppCompatActivity {
     ImageButton btnDate;
 
     RadioGroup radioGroup;
+    RadioButton rmale, rfemale;
     private int date;
     private int month;
     private int year;
@@ -61,6 +62,9 @@ public class UserUpdateActivity extends AppCompatActivity {
         edtContactNo = findViewById(R.id.edt_contactNo);
         edtEmail = findViewById(R.id.edt_email);
         edtPassword = findViewById(R.id.edt_password);
+
+        rmale = findViewById(R.id.u_male);
+        rfemale = findViewById(R.id.u_female);
         btnDeleteUser = findViewById(R.id.btn_delete_user);
 
         radioGroup = findViewById(R.id.radio_grp_Usr);
@@ -80,11 +84,17 @@ public class UserUpdateActivity extends AppCompatActivity {
         String strLastName = i.getStringExtra("LAST_NAME");
         String strDob = i.getStringExtra("DATE_OF_BIRTH");
         String strAge = i.getStringExtra("AGE");
+        String strGender = i.getStringExtra("GENDER");
         String strContactNo = i.getStringExtra("CONTACT_NO");
         String strEmail = i.getStringExtra("EMAIL");
         String strPassword = i.getStringExtra("PASSWORD");
 
         edtRoleId.setText(strRoleId);
+        if (strGender.equals("Male")) {
+            rmale.setChecked(true);
+        } else if (strGender.equals("Female")) {
+            rfemale.setChecked(true);
+        }
 
         UserLangModel userLangModel = new UserLangModel();
         edtFirstName.setText(strFirstName);
@@ -93,6 +103,7 @@ public class UserUpdateActivity extends AppCompatActivity {
         edtContactNo.setText(strContactNo);
         edtEmail.setText(strEmail);
         edtPassword.setText(strPassword);
+        tvDateOfBirth.setText(strDob);
 
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,10 +190,8 @@ public class UserUpdateActivity extends AppCompatActivity {
                 } else if (strPassword.length() == 0) {
                     edtPassword.requestFocus();
                     edtPassword.setError("FIELD CANNOT BE EMPTY");
-                } else if (!strPassword.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
-                    edtPassword.requestFocus();
-                    edtPassword.setError("PASSWORD MUST CONTAIN AT LEAST :\n ONE DIGIT, ONE LOWERCASE LETTER, ONE UPPERCASE LETTER,AND A SPECIAL CHARATER\nNO SPACE ALLOWED\nMINIMUM 8 CHARACTERS ALLOWED");
-                } else {
+                }
+                else {
                     Toast.makeText(UserUpdateActivity.this, "Validation Successful", Toast.LENGTH_LONG).show();
                     apiCall(userId, strRoleId, strFirstName, strLastName, strDate, strAge, strContactNo, strEmail, strPassword, strRadioButton);
                 }
@@ -192,7 +201,7 @@ public class UserUpdateActivity extends AppCompatActivity {
 
     private void apiCall(String userId, String strRoleId, String strFirstName, String strLastName, String strDob, String strAge, String strContactNo, String strEmail, String strPassword, String strRadioButton) {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.PUT, Utils.USER_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, Utils.SIGNUP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("api calling done", response);
@@ -210,6 +219,7 @@ public class UserUpdateActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> hashMap = new HashMap<>();
                 hashMap.put("userId", userId);
+                hashMap.put("roleId",strRoleId);
                 hashMap.put("firstName", strFirstName);
                 hashMap.put("lastName", strLastName);
                 hashMap.put("dateOfBirth", strDob);
@@ -230,8 +240,8 @@ public class UserUpdateActivity extends AppCompatActivity {
 
     private void deleteAPI(String userId) {
 
-        Log.e("TAG****", "deleteAPI UPdate " + userId);
-        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Utils.USER_URL, new Response.Listener<String>() {
+        Log.e("TAG****", "deleteAPI Update " + userId);
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Utils.SIGNUP_URL, new Response.Listener<String>() {
             @Override
 
             public void onResponse(String response) {

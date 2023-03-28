@@ -88,7 +88,7 @@ public class MaintenanceListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String id1 = maintenanceLangModelArrayList.get(position).get_id();
-                Log.e("id in edit: ", id1);
+                Log.e("id in delete: ", id1);
 
                 Intent intent = new Intent(context, MaintenanceUpdateActivity.class);
                 intent.putExtra("MAINTENANCE_ID", id1);

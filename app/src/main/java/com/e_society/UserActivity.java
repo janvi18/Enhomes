@@ -150,7 +150,7 @@ public class UserActivity extends AppCompatActivity {
     private void userApiCall(String strRoleId, String strFirstName, String strLastName, String
             strDob, String strAge, String strRadioButton, String strContactNo, String strEmail, String
                                      strPassword) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.USER_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.SIGNUP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("roleId in add:", strRoleId);

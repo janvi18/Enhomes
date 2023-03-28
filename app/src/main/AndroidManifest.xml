@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ESociety"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".userTableActivity"
+            android:exported="false" />
+        <activity
             android:name=".display.UserDisplayActivity"
             android:exported="false" />
         <activity
@@ -37,6 +40,9 @@
             android:exported="false" />
         <activity
             android:name=".update.RoleUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.NonMemberUpdateActivity"
             android:exported="false" />
         <activity
             android:name=".display.RoleDisplayActivity"
