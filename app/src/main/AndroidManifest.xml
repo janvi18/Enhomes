@@ -15,6 +15,12 @@
         android:theme="@style/Theme.ESociety"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".display.AdminDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".userTableActivity"
             android:exported="false" />
         <activity
@@ -28,6 +34,9 @@
             android:exported="false" />
         <activity
             android:name=".update.EventUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".update.AdminUpdateActivity"
             android:exported="false" />
         <activity
             android:name=".EventActivity"

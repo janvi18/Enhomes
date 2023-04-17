@@ -16,6 +16,8 @@
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/drawable/purple_bg.xml" value="0.1" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/drawable/white_box.xml" value="0.26461538461538464" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/drawable/white_small.xml" value="0.26461538461538464" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_admin.xml" value="0.25" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_admin_display.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_complaint.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_dash_board.xml" value="0.264" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_delivery.xml" value="0.2526041666666667" />
@@ -61,6 +63,7 @@
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_user_display.xml" value="0.2" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_user_table.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/activity_visitor.xml" value="0.2375" />
+        <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/admin_table.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/house_table.xml" value="0.264" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/nonmember_table.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/sjanv/AndroidStudioProjects/ESociety/app/src/main/res/layout/notification.xml" value="0.21481481481481482" />

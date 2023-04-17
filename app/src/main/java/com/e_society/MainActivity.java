@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.e_society.display.AdminDisplayActivity;
 import com.e_society.display.EventDisplayActivity;
 import com.e_society.display.FeedbackDisplayActivity;
 import com.e_society.display.HouseDisplayActivity;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent i = new Intent(MainActivity.this, HouseActivity.class);
+                Intent i = new Intent(MainActivity.this, AdminDisplayActivity.class);
                 startActivity(i);
                 finish();
             }
