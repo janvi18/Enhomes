@@ -26,17 +26,17 @@
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/edt_roleId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="RoleId"
-            android:imeOptions="actionNext"
-            android:singleLine="true"
-            android:textColor="#000"
-            android:textColorHint="#000"
-            android:textSize="20sp" />
+<!--        <EditText-->
+<!--            android:id="@+id/edt_roleId"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:hint="RoleId"-->
+<!--            android:imeOptions="actionNext"-->
+<!--            android:singleLine="true"-->
+<!--            android:textColor="#000"-->
+<!--            android:textColorHint="#000"-->
+<!--            android:textSize="20sp" />-->
 
         <EditText
             android:id="@+id/edt_firstName"
@@ -69,11 +69,12 @@
 
             <TextView
                 android:id="@+id/tv_udob"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:hint="Date Of Birth"
+                style="@android:style/Widget.EditText"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
                 android:textColor="#000"
@@ -112,6 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="Gender"
+            style="@android:style/Widget.EditText"
             android:imeOptions="actionNext"
             android:singleLine="true"
             android:textColor="#000"

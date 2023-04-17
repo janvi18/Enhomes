@@ -46,15 +46,21 @@ public class NonMemberListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = layoutInflater.inflate(R.layout.raw_list, null);
+        view = layoutInflater.inflate(R.layout.nonmember_table, null);
 
-        TextView tvData = view.findViewById(R.id.tv_data);
-        tvData.setText(nonMemberLangModelArrayList.get(position).getId() + " " +
-                nonMemberLangModelArrayList.get(position).getNonMemberName() + " " +
-                nonMemberLangModelArrayList.get(position).getArrivingTime() + " " +
-                nonMemberLangModelArrayList.get(position).getIsVisited() + " " +
-                nonMemberLangModelArrayList.get(position).getPickup() + " " +
-                nonMemberLangModelArrayList.get(position).getStatus());
+        TextView tvName, tvArrivingTime, tvIsVisited, tvPickup, tvStatus;
+
+        tvName = view.findViewById(R.id.tv_name);
+        tvArrivingTime = view.findViewById(R.id.tvArrivingTime);
+        tvIsVisited = view.findViewById(R.id.tv_isVisited);
+        tvPickup = view.findViewById(R.id.tv_pickup);
+        tvStatus = view.findViewById(R.id.tv_status);
+
+        tvName.setText(nonMemberLangModelArrayList.get(position).getNonMemberName());
+        tvArrivingTime.setText(nonMemberLangModelArrayList.get(position).getArrivingTime());
+        tvIsVisited.setText(nonMemberLangModelArrayList.get(position).getIsVisited());
+        tvPickup.setText(nonMemberLangModelArrayList.get(position).getPickup());
+        tvStatus.setText(nonMemberLangModelArrayList.get(position).getStatus());
 
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);
@@ -64,11 +70,10 @@ public class NonMemberListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String id = nonMemberLangModelArrayList.get(position).getId();
-                Log.e("id in edit: ", id);
 
                 Intent intent = new Intent(context, NonMemberUpdateActivity.class);
                 intent.putExtra("ID", id);
-                intent.putExtra("HOUSE_ID",nonMemberLangModelArrayList.get(position).getHouseId());
+                intent.putExtra("HOUSE_ID", nonMemberLangModelArrayList.get(position).getHouseId());
                 intent.putExtra("NAME", nonMemberLangModelArrayList.get(position).getNonMemberName());
                 intent.putExtra("ARRIVING_TIME", nonMemberLangModelArrayList.get(position).getArrivingTime());
                 intent.putExtra("VISITED", nonMemberLangModelArrayList.get(position).getIsVisited());
@@ -84,10 +89,15 @@ public class NonMemberListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String id1 = nonMemberLangModelArrayList.get(position).getId();
-                Log.e("id in delete: ", id1);
 
                 Intent intent = new Intent(context, NonMemberUpdateActivity.class);
                 intent.putExtra("ID", id1);
+                intent.putExtra("HOUSE_ID", nonMemberLangModelArrayList.get(position).getHouseId());
+                intent.putExtra("NAME", nonMemberLangModelArrayList.get(position).getNonMemberName());
+                intent.putExtra("ARRIVING_TIME", nonMemberLangModelArrayList.get(position).getArrivingTime());
+                intent.putExtra("VISITED", nonMemberLangModelArrayList.get(position).getIsVisited());
+                intent.putExtra("PICKUP", nonMemberLangModelArrayList.get(position).getPickup());
+                intent.putExtra("STATUS", nonMemberLangModelArrayList.get(position).getStatus());
 
                 context.startActivity(intent);
             }

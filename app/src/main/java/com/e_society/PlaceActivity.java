@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class PlaceActivity extends AppCompatActivity {
 
-    EditText edtPlaceDetails;
+    EditText edtPlaceDetails, edtRent;
     Button btnAdd;
 
     @Override
@@ -32,26 +32,36 @@ public class PlaceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_place);
 
         edtPlaceDetails = findViewById(R.id.edt_placeDetails);
+        edtRent=findViewById(R.id.edt_placeRent);
         btnAdd = findViewById(R.id.btn_addPlace);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String strPlaceDetails = edtPlaceDetails.getText().toString();
+                String strRent = edtRent.getText().toString();
+
                 if (strPlaceDetails.length() == 0) {
                     edtPlaceDetails.requestFocus();
                     edtPlaceDetails.setError("FIELD CANNOT BE EMPTY");
                 } else if (!strPlaceDetails.matches("[a-zA-Z ]+")) {
                     edtPlaceDetails.requestFocus();
                     edtPlaceDetails.setError("ENTER ONLY ALPHABETICAL CHARACTER");
-                } else {
-                    placeApi(strPlaceDetails);
+                }else if (strRent.length() == 0) {
+                    edtRent.requestFocus();
+                    edtRent.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strRent.matches("^[0-9]+$")) {
+                    edtRent.requestFocus();
+                    edtRent.setError("PLEASE ENTER DIGITS ONLY");
+                }
+                else {
+                    placeApi(strPlaceDetails,strRent);
                 }
             }
         });
     }
 
-    private void placeApi(String strPlaceDeets) {
+    private void placeApi(String strPlaceDeets,String strRent) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.PLACE_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -70,6 +80,7 @@ public class PlaceActivity extends AppCompatActivity {
 
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("placeName", strPlaceDeets);
+                map.put("rent",strRent);
 
                 return map;
             }

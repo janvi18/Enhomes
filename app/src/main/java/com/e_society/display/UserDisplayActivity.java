@@ -40,7 +40,7 @@ public class UserDisplayActivity extends AppCompatActivity {
 
         listview = findViewById(R.id.ls_User_listview);
 
-        //Update button
+        //add button
         btnAdd = findViewById(R.id.btn_add);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +66,7 @@ public class UserDisplayActivity extends AppCompatActivity {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         JSONObject role = jsonObject1.getJSONObject("role");
                         String roleId = role.getString("_id");
-                        Log.e("roleId:", roleId);
+                        Log.e("roleId in display:", roleId);
                         String strUserId = jsonObject1.getString("_id");
                         String strFirstName = jsonObject1.getString("firstName");
                         String strLastName = jsonObject1.getString("lastName");

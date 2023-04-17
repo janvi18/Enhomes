@@ -16,10 +16,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.e_society.R;
-import com.e_society.display.HouseDisplayActivity;
-import com.e_society.display.MaintenanceDisplayActivity;
 import com.e_society.display.RoleDisplayActivity;
-import com.e_society.model.RoleModel;
+import com.e_society.model.RoleLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 
@@ -45,7 +43,7 @@ public class RoleUpdateActivity extends AppCompatActivity {
         String strRoleId = i.getStringExtra("ROLE_ID");
         String strRoleName = i.getStringExtra("ROLE_NAME");
 
-        RoleModel roleLangModel = new RoleModel();
+        RoleLangModel roleLangModel = new RoleLangModel();
         edtRoleName.setText(strRoleName);
 
         btnRole.setText("Update Role");

@@ -1,7 +1,7 @@
 package com.e_society.model;
 
 public class PlaceLangModel {
-    String _id, placeName;
+    String _id, placeName,rent;
 
     public String get_id() {
         return _id;
@@ -17,5 +17,13 @@ public class PlaceLangModel {
 
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
+    }
+
+    public String getRent() {
+        return rent;
+    }
+
+    public void setRent(String rent) {
+        this.rent = rent;
     }
 }

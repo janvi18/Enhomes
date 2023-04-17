@@ -46,12 +46,11 @@ public class UserListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = layoutInflater.inflate(R.layout.raw_list, null);
+        view = layoutInflater.inflate(R.layout.user_table, null);
 
 
-        TextView tvRoleName, tvFn, tvLn, tvDob, tvAge, tvGen, tvCnt, tvEm;
+        TextView tvFn, tvLn, tvDob, tvAge, tvGen, tvCnt, tvEm, tvPwd;
 
-        tvRoleName = view.findViewById(R.id.tv_role_name);
         tvFn = view.findViewById(R.id.tv_fn);
         tvLn = view.findViewById(R.id.tv_ln);
         tvDob = view.findViewById(R.id.tv_dob);
@@ -59,8 +58,8 @@ public class UserListAdapter extends BaseAdapter {
         tvGen = view.findViewById(R.id.tv_gen);
         tvCnt = view.findViewById(R.id.tv_cnt);
         tvEm = view.findViewById(R.id.tv_em);
+        tvPwd=view.findViewById(R.id.tv_pwd);
 
-        tvRoleName.setText(userLangModelArrayList.get(position).getRoleId());
         tvFn.setText(userLangModelArrayList.get(position).getFirstName());
         tvLn.setText(userLangModelArrayList.get(position).getLastName());
         tvDob.setText(userLangModelArrayList.get(position).getDateOfBirth());
@@ -68,6 +67,7 @@ public class UserListAdapter extends BaseAdapter {
         tvGen.setText(userLangModelArrayList.get(position).getGender());
         tvCnt.setText(userLangModelArrayList.get(position).getContactNo());
         tvEm.setText(userLangModelArrayList.get(position).getEmail());
+        tvPwd.setText(userLangModelArrayList.get(position).getPassword());
 
         ImageView
                 imgEdit = view.findViewById(R.id.img_edit);

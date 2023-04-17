@@ -47,16 +47,19 @@ public class EventListAdapter extends BaseAdapter {
 
         //update
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = layoutInflater.inflate(R.layout.raw_list, null);
+        view = layoutInflater.inflate(R.layout.event_tabel, null);
 
-        TextView TvData = view.findViewById(R.id.tv_data);
-        TvData.setText(eventLangModelArrayList.get(position).get_id() + ""
-                + eventLangModelArrayList.get(position).getHouse_id() + ""
-                + eventLangModelArrayList.get(position).getPlace_id() + ""
-                + eventLangModelArrayList.get(position).getDate() + ""
-                + eventLangModelArrayList.get(position).getEventDate() + ""
-                + eventLangModelArrayList.get(position).getEventDetails() + ""
-                + eventLangModelArrayList.get(position).getRent());
+        TextView tvDate,tvEndDate,tvDetails,tvRent;
+        tvDate=view.findViewById(R.id.tv_eventDate);
+        tvEndDate=view.findViewById(R.id.tv_eventEndDate);
+        tvDetails=view.findViewById(R.id.tv_eventDetails);
+        tvRent=view.findViewById(R.id.tv_rent);
+
+        tvDate.setText(eventLangModelArrayList.get(position).getDate());
+        tvEndDate.setText(eventLangModelArrayList.get(position).getEventDate());
+        tvDetails.setText(eventLangModelArrayList.get(position).getEventDetails());
+        tvRent.setText(eventLangModelArrayList.get(position).getRent());
+
 
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);
@@ -74,7 +77,7 @@ public class EventListAdapter extends BaseAdapter {
                 intent.putExtra("EVENT_DATE", eventLangModelArrayList.get(position).getDate());
                 intent.putExtra("EVENT_END_DATE", eventLangModelArrayList.get(position).getEventDate());
                 intent.putExtra("EVENT_DETAILS", eventLangModelArrayList.get(position).getEventDetails());
-                intent.putExtra("EVENT_RENT", eventLangModelArrayList.get(position).getRent());
+                intent.putExtra("RENT", eventLangModelArrayList.get(position).getRent());
 
                 context.startActivity(intent);
             }
@@ -93,7 +96,7 @@ public class EventListAdapter extends BaseAdapter {
                 intent.putExtra("EVENT_DATE", eventLangModelArrayList.get(position).getDate());
                 intent.putExtra("EVENT_END_DATE", eventLangModelArrayList.get(position).getEventDate());
                 intent.putExtra("EVENT_DETAILS", eventLangModelArrayList.get(position).getEventDetails());
-                intent.putExtra("EVENT_RENT", eventLangModelArrayList.get(position).getRent());
+                intent.putExtra("RENT", eventLangModelArrayList.get(position).getRent());
 
                 context.startActivity(intent);
             }

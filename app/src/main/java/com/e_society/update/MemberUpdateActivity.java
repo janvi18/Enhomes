@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.MemberActivity;
 import com.e_society.R;
 import com.e_society.display.MemberDisplayActivity;
 import com.e_society.model.MemberLangModel;
@@ -33,12 +35,13 @@ import java.util.Map;
 
 public class MemberUpdateActivity extends AppCompatActivity {
 
-    EditText edt_houseId, edt_memberName, edt_age, edt_contactNo;
-    TextView tv_dateOfBirth;
+    EditText edt_memberName, edt_age, edt_contactNo;
+    TextView tv_dateOfBirth, tv_gender, tvHouseId;
     ImageButton btn_memberDate;
     Button btn_member, btn_delete;
 
     RadioGroup radioGroup;
+    RadioButton rbMale, rbFemale;
 
 
     private int date;
@@ -53,16 +56,19 @@ public class MemberUpdateActivity extends AppCompatActivity {
 
         Intent i = getIntent();
 
-        edt_houseId = findViewById(R.id.edt_houseId);
+        tvHouseId = findViewById(R.id.tv_houseId);
         edt_memberName = findViewById(R.id.edt_memberName);
         edt_age = findViewById(R.id.edt_age);
         edt_contactNo = findViewById(R.id.edt_contactNo);
         tv_dateOfBirth = findViewById(R.id.tv_dateOfBirth);
+        tv_gender = findViewById(R.id.tv_gender);
         btn_memberDate = findViewById(R.id.btn_memberDate);
         btn_member = findViewById(R.id.btn_member);
         btn_delete = findViewById(R.id.btn_delete_member);
 
         radioGroup = findViewById(R.id.radio_grp);
+        rbMale = findViewById(R.id.radio_male);
+        rbFemale = findViewById(R.id.radio_female);
 
 
         //    Log.e("MAINTENANCE_ID", String.valueOf(maintenanceId));
@@ -70,17 +76,24 @@ public class MemberUpdateActivity extends AppCompatActivity {
         String strHouseId = i.getStringExtra("HOUSE_ID");
         String strMemberName = i.getStringExtra("MEMBER_NAME");
         String strAge = i.getStringExtra("AGE");
-        String strContactNo = i.getStringExtra("CONTACT_NO");
+        String strGender = i.getStringExtra("GENDER");
+        String strContactNo = i.getStringExtra("CONTACT_NUMBER");
         String strDateOfBirth = i.getStringExtra("DATE_OF_BIRTH");
 
 
+        if (strGender.equals("Male")) {
+            rbMale.setChecked(true);
+        } else if (strGender.equals("Female")) {
+            rbFemale.setChecked(true);
+        }
+
         //set text
         MemberLangModel memberLangModel = new MemberLangModel();
-        edt_houseId.setText(strHouseId);
+        tvHouseId.setText(strHouseId);
         edt_memberName.setText(strMemberName);
+        tv_dateOfBirth.setText(strDateOfBirth);
         edt_age.setText(strAge);
         edt_contactNo.setText(strContactNo);
-        tv_dateOfBirth.setText(strDateOfBirth);
 
 
         btn_member.setText("Update Member");
@@ -96,7 +109,7 @@ public class MemberUpdateActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                String strHouseId = edt_houseId.getText().toString();
+                String strHouseId = tvHouseId.getText().toString();
                 String strMemberName = edt_memberName.getText().toString();
                 String strAge = edt_age.getText().toString();
                 String strContactNo = edt_contactNo.getText().toString();
@@ -107,14 +120,37 @@ public class MemberUpdateActivity extends AppCompatActivity {
                 String strRadioButton = radioButton.getText().toString();
 
 
-                Log.e("House Id", strHouseId);
-                Log.e("MemberName ", strMemberName);
-                Log.e("Age", strAge);
-                Log.e("ContactNo", strContactNo);
-                Log.e("DateOfBirth", strDateOfBirth);
+                if (strMemberName.length() == 0) {
+                    edt_memberName.requestFocus();
+                    edt_memberName.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strMemberName.matches("[a-zA-Z ]+")) {
+                    edt_memberName.requestFocus();
+                    edt_memberName.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+                } else if (strDateOfBirth.length() == 0) {
+                    tv_dateOfBirth.requestFocus();
+                    tv_dateOfBirth.setError("FIELD CANNOT BE EMPTY");
+                } else if (strAge.length() == 0) {
+                    edt_age.requestFocus();
+                    edt_age.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strAge.matches("^[0-9]{1,}$")) {
+                    edt_age.requestFocus();
+                    edt_age.setError("ENTER ONLY DIGITS");
+                } else if (strContactNo.length() == 0) {
+                    edt_contactNo.requestFocus();
+                    edt_contactNo.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strContactNo.matches("^[0-9]{10}$")) {
+                    edt_contactNo.requestFocus();
+                    edt_contactNo.setError("ENTER ONLY DIGITS");
+                } else if (!(rbMale.isChecked() || rbFemale.isChecked())) {
+                    tv_gender.requestFocus();
+                    tv_gender.setError("PLEASE SELECT GENDER");
 
+                } else {
+                    Toast.makeText(MemberUpdateActivity.this, "Validation Successful", Toast.LENGTH_LONG).show();
+                    apiCall(strMemberId, strHouseId, strMemberName, strAge, strContactNo, strDateOfBirth, strRadioButton);
 
-                apiCall(strMemberId, strHouseId, strMemberName, strAge, strContactNo, strDateOfBirth, strRadioButton);
+                }
+
 
             }
         });
@@ -183,9 +219,8 @@ public class MemberUpdateActivity extends AppCompatActivity {
     private void apiCall(String strMemberId, String strHouseId, String strMemberName, String strAge, String strDateOfBirth, String strContactNo, String strRadioButton) {
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, Utils.MEMBER_URL, new Response.Listener<String>() {
             @Override
-
             public void onResponse(String response) {
-                Log.e("api calling done", response);
+                Log.e("Update api calling done", response + " " + strMemberName);
                 Intent intent = new Intent(MemberUpdateActivity.this, MemberDisplayActivity.class);
                 startActivity(intent);
             }
@@ -200,7 +235,7 @@ public class MemberUpdateActivity extends AppCompatActivity {
                 Map<String, String> hashMap = new HashMap<>();
                 hashMap.put("memberId", strMemberId);
                 hashMap.put("houseId", strHouseId);
-                hashMap.put("name", strMemberName);
+                hashMap.put("memberName", strMemberName);
                 hashMap.put("age", strAge);
                 hashMap.put("dateOfBirth", strDateOfBirth);
                 hashMap.put("contactNo", strContactNo);

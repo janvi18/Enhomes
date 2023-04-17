@@ -23,16 +23,27 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.adapter.MaintenanceMasterListAdapter;
 import com.e_society.display.MaintenanceDisplayActivity;
+import com.e_society.display.MaintenanceMasterDisplayActivity;
+import com.e_society.model.MaintenanceLangModel;
+import com.e_society.model.MaintenanceMasterLangModel;
+import com.e_society.model.UserLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,11 +51,13 @@ import java.util.Map;
 
 public class MaintenanceActivity extends AppCompatActivity {
 
-    EditText edtHouseId, edtMaintenanceAmount, edtPenalty;
+    EditText edtHouseId;
+    TextView tvMaintenanceAmount, tvPenalty;
     Button btnMaintenance;
-    String strMaintenanceMonth;
+    String strMaintenanceMonth, maintenanceId, strSelectedHouse;
+    String strMaintenanceAmount, strPenalty;
 
-//    RadioGroup radioGroup;
+    //    RadioGroup radioGroup;
     Spinner spinnerMonth;
     String strMonths[] = {"Select a Month", "January", "February", "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December"};
@@ -61,8 +74,8 @@ public class MaintenanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maintanance);
 
         edtHouseId = findViewById(R.id.et_houseId);
-        edtMaintenanceAmount = findViewById(R.id.et_amt);
-        edtPenalty = findViewById(R.id.et_penalty);
+        tvMaintenanceAmount = findViewById(R.id.tv_amt);
+        tvPenalty = findViewById(R.id.tv_penalty);
         btnMaintenance = findViewById(R.id.btn_maintenance);
 
         //spinner variable
@@ -85,13 +98,18 @@ public class MaintenanceActivity extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
 
+
+        getMasterApi();
+
+        Log.e(strMaintenanceAmount + "", strPenalty + "");
+
         //Normal code
         btnMaintenance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String strHouseId=edtHouseId.getText().toString();
-                String strMaintenanceAmount = edtMaintenanceAmount.getText().toString();
-                String strPenalty = edtPenalty.getText().toString();
+
+                String strHouseId = edtHouseId.getText().toString();
+
                 String strCreateDate = tvDisDate.getText().toString();
                 String strPaymentDate = tvPayDate.getText().toString();
                 String strLastDate = tvLastDate.getText().toString();
@@ -99,25 +117,18 @@ public class MaintenanceActivity extends AppCompatActivity {
 //                RadioButton radioButton = findViewById(id);
 //
 //                String strRadioButton = radioButton.getText().toString();
+
                 if (strCreateDate.length() == 0) {
                     tvDisDate.requestFocus();
                     tvDisDate.setError("FIELD CANNOT BE EMPTY");
-                } else if (strMaintenanceAmount.length() == 0) {
-                    edtMaintenanceAmount.requestFocus();
-                    edtMaintenanceAmount.setError("FIELD CANNOT BE EMPTY");
-                } else if (!strMaintenanceAmount.matches("^[0-9]{1,10}$")) {
-                    edtMaintenanceAmount.requestFocus();
-                    edtMaintenanceAmount.setError("ENTER ONLY DIGITS");
                 } else if (strPaymentDate.length() == 0) {
                     tvPayDate.requestFocus();
                     tvPayDate.setError("FIELD CANNOT BE EMPTY");
                 } else if (strLastDate.length() == 0) {
                     tvLastDate.requestFocus();
                     tvLastDate.setError("FIELD CANNOT BE EMPTY");
-                } else if (!strPenalty.matches("^[0-9]{1,10}$")) {
-                    edtPenalty.requestFocus();
-                    edtPenalty.setError("ENTER ONLY DIGITS");
                 } else {
+                    Toast.makeText(MaintenanceActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
                     apiCall(strHouseId, strCreateDate, strMaintenanceMonth, strMaintenanceAmount, strPaymentDate, strLastDate, strPenalty);
                 }
             }
@@ -143,7 +154,8 @@ public class MaintenanceActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 strMaintenanceMonth = strMonths[position];
-                Log.e("month:",strMaintenanceMonth);
+                Log.e("month:", strMaintenanceMonth);
+                getMaintenanceId();
             }
 
             @Override
@@ -227,6 +239,77 @@ public class MaintenanceActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
+    }
+
+    private void getMaintenanceId() {
+        ArrayList<MaintenanceLangModel> arrayList = new ArrayList<MaintenanceLangModel>();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.SIGNUP_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "Display--onResponse:" + response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String strMaintenanceId = jsonObject1.getString("_id");
+                        String strMonth = jsonObject1.getString("month");
+
+                        if (strMonth.equals(strMaintenanceMonth)) {
+                            maintenanceId = strMaintenanceId;
+                        }
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("error: ", String.valueOf(error));
+            }
+        });
+
+        VolleySingleton.getInstance(MaintenanceActivity.this).addToRequestQueue(stringRequest);
+
+
+    }
+
+    private void getMasterApi() {
+        ArrayList<MaintenanceMasterLangModel> arrayList = new ArrayList<MaintenanceMasterLangModel>();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.MAINTENANCE_MASTER_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        strMaintenanceAmount = jsonObject1.getString("maintenanceAmount");
+                        strPenalty = jsonObject1.getString("penalty");
+
+                        tvMaintenanceAmount.setText(strMaintenanceAmount);
+                        tvPenalty.setText(strPenalty);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleySingleton.getInstance(MaintenanceActivity.this).addToRequestQueue(stringRequest);
+
 
     }
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -52,22 +53,25 @@ public class MemberDisplayActivity extends AppCompatActivity {
 
     private void MemberApi() {
         ArrayList<MemberLangModel> arrayList = new ArrayList<MemberLangModel>();
-
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.MEMBER_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("Display**", "api calling done");
+                Log.e("response:  : ", response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
+
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         JSONObject jsonObject2 = jsonObject1.getJSONObject("house");
                         String strHouseId = jsonObject2.getString("_id");
+                        Log.e(strHouseId, "bohot hua ab");
                         String strMemberId = jsonObject1.getString("_id");
                         String strName = jsonObject1.getString("memberName");
-                        String strDate = jsonObject1.getString("date");
+                        String strDate = jsonObject1.getString("dateOfBirth");
                         String strGender = jsonObject1.getString("gender");
-                        String strContact = jsonObject1.getString("contact no.");
+                        String strContact = jsonObject1.getString("contactNo");
                         String strAge = jsonObject1.getString("age");
 
                         MemberLangModel memberLangModel = new MemberLangModel();
@@ -91,7 +95,7 @@ public class MemberDisplayActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("error: ", String.valueOf(error));
             }
         });
 

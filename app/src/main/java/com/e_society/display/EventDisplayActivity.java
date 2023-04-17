@@ -2,7 +2,6 @@ package com.e_society.display;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -14,10 +13,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.e_society.EventActivity;
 import com.e_society.R;
+import com.e_society.utils.Utils;
 import com.e_society.adapter.EventListAdapter;
 import com.e_society.model.EventLangModel;
-import com.e_society.model.MaintenanceLangModel;
-import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

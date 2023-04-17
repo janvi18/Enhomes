@@ -42,13 +42,11 @@ import com.e_society.utils.VolleySingleton;
 
 
 public class MaintenanceUpdateActivity extends AppCompatActivity {
-
-
-    EditText edtHouseId, edtMaintenanceAmount, edtPenalty;
+    EditText edtHouseId;
+    TextView tvMaintenanceAmount, tvPenalty;
     Button btnMaintenance, btnDeleteMaintenance;
     String strMaintenanceMonth;
 
-    RadioGroup radioGroup;
     Spinner spinnerMonth;
     String strMonths[] = {"Select a Month", "January", "February", "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December"};
@@ -68,15 +66,13 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
         Intent i = getIntent();
         spinnerMonth = findViewById(R.id.spinner_month);
         edtHouseId = findViewById(R.id.et_houseId);
-        edtMaintenanceAmount = findViewById(R.id.et_amt);
-        edtPenalty = findViewById(R.id.et_penalty);
+        tvMaintenanceAmount = findViewById(R.id.tv_amt);
+        tvPenalty = findViewById(R.id.tv_penalty);
         tvDisDate = findViewById(R.id.tv_create);
         tvPayDate = findViewById(R.id.tv_payDate);
         tvLastDate = findViewById(R.id.tv_lastDate);
         btnDeleteMaintenance = findViewById(R.id.btn_delete_maintenance);
 
-//        //radio Button
-//        radioGroup = findViewById(R.id.radio_grp);
 
         //Date :- creationDate,paymentDate,lastDate
         btnDate = findViewById(R.id.btn_date);
@@ -90,7 +86,6 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
 
         btnMaintenance = findViewById(R.id.btn_maintenance);
 
-        //    Log.e("MAINTENANCE_ID", String.valueOf(maintenanceId));
         String strMaintenanceAmount = i.getStringExtra("MAINTENANCE_AMOUNT");
         String strPenalty = i.getStringExtra("PENALTY");
         String strCreationDate = i.getStringExtra("CREATION_DATE");
@@ -100,8 +95,9 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
         String maintenanceId = i.getStringExtra("MAINTENANCE_ID");
         String maintenanceHouse = i.getStringExtra("MAINTENANCE_HOUSE");
 
+        Log.e(strSelMonth+"","Month***");
+
         //spinner auto selection
-        Log.e("month: ", strSelMonth);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, strMonths);
         int position = adapter.getPosition(strSelMonth);
         spinnerMonth.post(new Runnable() {
@@ -111,16 +107,15 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
             }
         });
 
-        edtHouseId.setText(maintenanceHouse);
+//        edtHouseId.setText(maintenanceHouse);
 
         //set text
         MaintenanceLangModel maintenanceLangModel = new MaintenanceLangModel();
-        edtMaintenanceAmount.setText(strMaintenanceAmount);
-        edtPenalty.setText(strPenalty);
+        tvMaintenanceAmount.setText(strMaintenanceAmount);
+        tvPenalty.setText(strPenalty);
         tvDisDate.setText(strCreationDate);
         tvPayDate.setText(strPaymentDate);
         tvLastDate.setText(strLastDate);
-        spinnerMonth.setSelection(7);
 
         //normal code
         btnMaintenance.setText("Update Maintenance");
@@ -136,20 +131,14 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String strHouseId = edtHouseId.getText().toString();
-                String strMaintenanceAmount = edtMaintenanceAmount.getText().toString();
-                String strPenalty = edtPenalty.getText().toString();
+                String strMaintenanceAmount = tvMaintenanceAmount.getText().toString();
+                String strPenalty = tvPenalty.getText().toString();
                 String strCreateDate = tvDisDate.getText().toString();
                 String strPaymentDate = tvPayDate.getText().toString();
                 String strLastDate = tvLastDate.getText().toString();
-                int id = radioGroup.getCheckedRadioButtonId();
-                RadioButton radioButton = findViewById(id);
 
-                Log.e("Create: ", strCreateDate);
-                Log.e("Payment: ", strPaymentDate);
-                Log.e("Last: ", strLastDate);
 
-//                String strRadioButton = radioButton.getText().toString();
-                apiCall(maintenanceId, strHouseId, strMaintenanceMonth, strPenalty, strCreateDate, strPaymentDate, strLastDate, strMaintenanceAmount);
+                apiCall(maintenanceId, "strHouseId", strMaintenanceMonth, strPenalty, strCreateDate, strPaymentDate, strLastDate, strMaintenanceAmount);
 
             }
         });
@@ -308,7 +297,6 @@ public class MaintenanceUpdateActivity extends AppCompatActivity {
                 hashMap.put("creationDate", strCreateDate);
                 hashMap.put("month", strMaintenanceMonth);
                 hashMap.put("maintenanceAmount", strMaintenanceAmount);
-//                hashMap.put("maintenancePaid", strRadioButton);
                 hashMap.put("paymentDate", strPaymentDate);
                 hashMap.put("lastDate", strLastDate);
                 hashMap.put("penalty", strPenalty);

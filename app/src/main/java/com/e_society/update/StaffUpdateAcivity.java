@@ -40,20 +40,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class StaffUpdateAcivity extends AppCompatActivity {
 
-    EditText edtStaffName, edtContact, edtAddress, edtAgencyName, edtAgencyContact;
-    EditText edtEntryTime, edtExitTime;
+    EditText edtStaffName, edtContact, edtAddress,edtEmail,edtPassword, edtAgencyName, edtAgencyContact;
 
     Button btnStaff, btnDelStaff;
 
-    Spinner spinnerType;
-    String strTypes[] = {"Select a Type", "SecurityGuard", "Sweeper", "PumpOperator", "Gardener"};
-
-
     ImageButton btnEntry, btnExit;
-    TextView tvEntry, tvExit;
+    TextView tvEntry, tvExit, tvType;
     private int hour;
     private int minute;
-    private String strStaff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,40 +57,46 @@ public class StaffUpdateAcivity extends AppCompatActivity {
         Intent i = getIntent();
 
         edtStaffName = findViewById(R.id.et_name);
+        tvType=findViewById(R.id.tv_type);
         edtContact = findViewById(R.id.et_contact);
         edtAddress = findViewById(R.id.et_add);
+        edtEmail=findViewById(R.id.et_email);
+        edtPassword=findViewById(R.id.et_pwd);
         edtAgencyName = findViewById(R.id.et_agencyName);
         edtAgencyContact = findViewById(R.id.et_agencyContact);
-        edtEntryTime = findViewById(R.id.tv_entry);
-        edtExitTime = findViewById(R.id.tv_exit);
+        tvEntry = findViewById(R.id.tv_entry);
+        tvExit = findViewById(R.id.tv_exit);
         btnStaff = findViewById(R.id.btn_staff);
         btnDelStaff = findViewById(R.id.btn_del_staff);
-        spinnerType = findViewById(R.id.spinner_type);
+
 
         btnDelStaff.setVisibility(View.VISIBLE);
 
 
         String staffId = i.getStringExtra("STAFF_ID");
         String strStaffName = i.getStringExtra("STAFF_NAME");
+        String strType=i.getStringExtra("TYPE");
         String strContact = i.getStringExtra("CONTACT");
         String strAddress = i.getStringExtra("ADDRESS");
+        String strEmail=i.getStringExtra("EMAIL");
+        String strPassword=i.getStringExtra("PASSWORD");
         String strAgencyName = i.getStringExtra("AGENCY_NAME");
         String strAgencyContact = i.getStringExtra("AGENCY_CONTACT");
         String strEntryTime = i.getStringExtra("ENTRY_TIME");
         String strExitTime = i.getStringExtra("EXIT_TIME");
-//        String strType = i.getStringExtra("TYPE");
 
-//        Log.e("type: ",strType);
 
-        Log.e("Data: ", staffId + " " + strStaffName + " " + strContact + " " + strAddress + " " + strEntryTime + " " + strExitTime + " " + strAgencyName + " " + strAgencyContact);
         StaffLangModel staffLangModel = new StaffLangModel();
         edtStaffName.setText(strStaffName);
+        tvType.setText(strType);
         edtContact.setText(strContact);
         edtAddress.setText(strAddress);
+        edtEmail.setText(strEmail);
+        edtPassword.setText(strPassword);
         edtAgencyName.setText(strAgencyName);
         edtAgencyContact.setText(strAgencyContact);
-        edtEntryTime.setText(strEntryTime);
-        edtExitTime.setText(strExitTime);
+        tvEntry.setText(strEntryTime);
+        tvExit.setText(strExitTime);
 
 
 //        time
@@ -141,36 +141,6 @@ public class StaffUpdateAcivity extends AppCompatActivity {
             }
         });
 
-        //spinner
-        ArrayAdapter<String> arrayAdapter = new
-                ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, strTypes) {
-                    @Override
-                    public View getDropDownView(int position, @Nullable View convertView,
-                                                @NonNull ViewGroup parent) {
-
-                        TextView tvData1 = (TextView) super.getDropDownView(position, convertView, parent);
-                        tvData1.setTextColor(Color.WHITE);
-                        tvData1.setTextSize(20);
-                        return tvData1;
-
-                    }
-
-                };
-        spinnerType.setAdapter(arrayAdapter);
-        Log.e("Selected Id: ", String.valueOf(spinnerType.getSelectedItemId()));
-        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                strStaff = strTypes[position];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
         btnDelStaff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,10 +155,12 @@ public class StaffUpdateAcivity extends AppCompatActivity {
                 String strStaffName = edtStaffName.getText().toString();
                 String strContact = edtContact.getText().toString();
                 String strAddress = edtAddress.getText().toString();
+                String strEmail=edtEmail.getText().toString();
+                String strPassword=edtPassword.getText().toString();
                 String strAgencyName = edtAgencyName.getText().toString();
                 String strAgencyContact = edtAgencyContact.getText().toString();
-                String strEntryTime = edtEntryTime.getText().toString();
-                String strExitTime = edtExitTime.getText().toString();
+                String strEntryTime = tvEntry.getText().toString();
+                String strExitTime = tvExit.getText().toString();
 
                 if (strStaffName.length() == 0) {
                     edtStaffName.requestFocus();
@@ -214,6 +186,18 @@ public class StaffUpdateAcivity extends AppCompatActivity {
                 } else if (!strAddress.matches("[a-zA-Z ]+")) {
                     edtAddress.requestFocus();
                     edtAddress.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+                }else if (strEmail.length() == 0) {
+                    edtEmail.requestFocus();
+                    edtEmail.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strEmail.matches("^[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]{0,4}$")) {
+                    edtEmail.requestFocus();
+                    edtEmail.setError("ENTER A VALID EMAIL ADDRESS");
+                } else if (strPassword.length() == 0) {
+                    edtPassword.requestFocus();
+                    edtPassword.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strPassword.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")) {
+                    edtPassword.requestFocus();
+                    edtPassword.setError("PASSWORD MUST CONTAIN AT LEAST :\n ONE DIGIT, ONE LOWERCASE LETTER, ONE UPPERCASE LETTER,AND A SPECIAL CHARATER\nNO SPACE ALLOWED\nMINIMUM 8 CHARACTERS ALLOWED");
                 } else if (strAgencyName.length() == 0) {
                     edtAgencyName.requestFocus();
                     edtAgencyName.setError("FIELD CANNOT BE EMPTY");
@@ -228,8 +212,8 @@ public class StaffUpdateAcivity extends AppCompatActivity {
                     edtAgencyContact.setError("PLEASE ENTER 10 DIGITS ONLY");
                 } else {
                     Toast.makeText(StaffUpdateAcivity.this, "Validation Successful", Toast.LENGTH_LONG).show();
-                    Log.e("Data", staffId + " " + strStaffName + " " + strContact + " " + strAddress + " " + strAgencyName + " " + strAgencyContact + " " + strEntryTime + " " + strExitTime);
-                    apicall(staffId, strStaffName, strContact, strAddress, strAgencyName, strAgencyContact, strEntryTime, strExitTime);
+                    Log.e("Data", staffId + " " + strStaffName + " "+strType+" " + strContact + " " + strAddress + " " + strAgencyName + " " + strAgencyContact + " " + strEntryTime + " " + strExitTime);
+                    apicall(staffId, strStaffName,strType, strContact, strAddress,strEmail,strPassword, strAgencyName, strAgencyContact, strEntryTime, strExitTime);
                 }
             }
         });
@@ -239,9 +223,8 @@ public class StaffUpdateAcivity extends AppCompatActivity {
 
     private void deleteAPI(String staffId) {
         Log.e("TAG****", "deleteAPI  " + staffId);
-        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Utils.STAFF_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Utils.STAFF_URL + "/" + staffId, new Response.Listener<String>() {
             @Override
-
             public void onResponse(String response) {
                 Log.e("api calling done", response);
                 Intent intent = new Intent(StaffUpdateAcivity.this, StaffDisplayActivity.class);
@@ -267,7 +250,7 @@ public class StaffUpdateAcivity extends AppCompatActivity {
 
     }
 
-    private void apicall(String staffId, String strStaffName, String strContact, String strAddress, String strAgencyName, String strAgencyContact, String strEntryTime, String strExitTime) {
+    private void apicall(String staffId, String strStaffName,String strType, String strContact, String strAddress,String strEmail,String strPassword, String strAgencyName, String strAgencyContact, String strEntryTime, String strExitTime) {
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, Utils.STAFF_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -287,8 +270,11 @@ public class StaffUpdateAcivity extends AppCompatActivity {
                 Map<String, String> hashMap = new HashMap<>();
                 hashMap.put("staffId", staffId);
                 hashMap.put("staffMemberName", strStaffName);
+                hashMap.put("type",strType);
                 hashMap.put("contactNo", strContact);
                 hashMap.put("address", strAddress);
+                hashMap.put("email", strEmail);
+                hashMap.put("password", strPassword);
                 hashMap.put("entryTime", strEntryTime);
                 hashMap.put("exitTime", strExitTime);
                 hashMap.put("agencyName", strAgencyName);

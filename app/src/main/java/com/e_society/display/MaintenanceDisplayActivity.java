@@ -70,10 +70,8 @@ public class MaintenanceDisplayActivity extends AppCompatActivity {
 
                         String strMaintenanceId = jsonObject1.getString("_id");
                         String strCreationDate = jsonObject1.getString("creationDate");
-//                        Log.e("month:",strMonth);
                         String strMonth = jsonObject1.getString("month");
                         String strMaintenanceAmount = jsonObject1.getString("maintenanceAmount");
-//                        String strPaid = jsonObject1.getString("maintenancePaid");
                         String strPayDate = jsonObject1.getString("paymentDate");
                         String strLastDate = jsonObject1.getString("lastDate");
                         String strPenalty = jsonObject1.getString("penalty");
@@ -84,7 +82,6 @@ public class MaintenanceDisplayActivity extends AppCompatActivity {
                         maintenanceLangModel.setMonth(strMonth);
                         maintenanceLangModel.setHouse(houseId);
                         maintenanceLangModel.setMaintenanceAmount(strMaintenanceAmount);
-//                        maintenanceLangModel.setMaintenancePaid(strPaid);
                         maintenanceLangModel.setPaymentDate(strPayDate);
                         maintenanceLangModel.setLastDate(strLastDate);
                         maintenanceLangModel.setPenalty(strPenalty);

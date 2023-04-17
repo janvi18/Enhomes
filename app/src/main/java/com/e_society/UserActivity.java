@@ -51,7 +51,6 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         btnUser = findViewById(R.id.btn_add_user);
-        edtRoleId = findViewById(R.id.edt_roleId);
         edtFirstName = findViewById(R.id.edt_firstName);
         edtLastName = findViewById(R.id.edt_lastName);
         tvDateOfBirth = findViewById(R.id.tv_udob);
@@ -60,6 +59,7 @@ public class UserActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edt_email);
         edtPassword = findViewById(R.id.edt_password);
         imgBtnBDate = findViewById(R.id.btn_Bdate);
+
         radioGroup = findViewById(R.id.radio_grp_Usr);
 
         imgBtnBDate.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +94,7 @@ public class UserActivity extends AppCompatActivity {
                 int id = radioGroup.getCheckedRadioButtonId();
                 RadioButton radioButton = findViewById(id);
                 String strRadioButton = radioButton.getText().toString();
+
                 String strAge = edtAge.getText().toString();
                 String strContactNo = edtContactNo.getText().toString();
                 String strEmail = edtEmail.getText().toString();

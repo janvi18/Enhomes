@@ -66,10 +66,12 @@ public class PlaceDisplayActivity extends AppCompatActivity {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         String strPlaceId = jsonObject1.getString("_id");
                         String strPlaceName = jsonObject1.getString("placeName");
+                        String strRent=jsonObject1.getString("rent");
 
                         PlaceLangModel placeLangModel = new PlaceLangModel();
                         placeLangModel.set_id(strPlaceId);
                         placeLangModel.setPlaceName(strPlaceName);
+                        placeLangModel.setRent(strRent);
                         arrayList.add(placeLangModel);
 
                     }

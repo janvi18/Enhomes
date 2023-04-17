@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class PlaceUpdateActivity extends AppCompatActivity {
 
-    EditText edtPlaceDetails;
+    EditText edtPlaceDetails, edtRent;
     Button btnAddPlace,btnDeletePlace;
 
     @Override
@@ -37,15 +37,18 @@ public class PlaceUpdateActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         edtPlaceDetails = findViewById(R.id.edt_placeDetails);
+        edtRent=findViewById(R.id.edt_placeRent);
         btnAddPlace = findViewById(R.id.btn_addPlace);
         btnDeletePlace = findViewById(R.id.btn_delete_place);
 
 
         String placeId = i.getStringExtra("PLACE_ID");
         String strPlaceDeets = i.getStringExtra("PLACE_NAME");
+        String strRent=i.getStringExtra("RENT");
 
         PlaceLangModel placeLangModel = new PlaceLangModel();
         edtPlaceDetails.setText(strPlaceDeets);
+        edtRent.setText(strRent);
 
         //normal code
         btnAddPlace.setText("Update Place");
@@ -54,16 +57,24 @@ public class PlaceUpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String strPlaceDetails = edtPlaceDetails.getText().toString();
+                String strRent=edtRent.getText().toString();
                 if (strPlaceDetails.length() == 0) {
                     edtPlaceDetails.requestFocus();
                     edtPlaceDetails.setError("FIELD CANNOT BE EMPTY");
                 } else if (!strPlaceDetails.matches("[a-zA-Z ]+")) {
                     edtPlaceDetails.requestFocus();
                     edtPlaceDetails.setError("ENTER ONLY ALPHABETICAL CHARACTER");
-                } else {
+                } else if (strRent.length() == 0) {
+                    edtRent.requestFocus();
+                    edtRent.setError("FIELD CANNOT BE EMPTY");
+                } else if (!strRent.matches("^[0-9]+$")) {
+                    edtRent.requestFocus();
+                    edtRent.setError("PLEASE ENTER DIGITS ONLY");
+                }
+                else {
                     Toast.makeText(PlaceUpdateActivity.this, "Validation Successful", Toast.LENGTH_LONG).show();
 
-                    apiCall(placeId, strPlaceDetails);
+                    apiCall(placeId, strPlaceDetails,strRent);
                 }
 
             }
@@ -108,7 +119,7 @@ public class PlaceUpdateActivity extends AppCompatActivity {
 
     }
 
-    private void apiCall(String id, String strPlaceDeets) {
+    private void apiCall(String id, String strPlaceDeets,String strRent) {
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, Utils.PLACE_URL, new Response.Listener<String>() {
             @Override
 
@@ -128,6 +139,8 @@ public class PlaceUpdateActivity extends AppCompatActivity {
                 Map<String, String> hashMap = new HashMap<>();
                 hashMap.put("placeId", id);
                 hashMap.put("placeName", strPlaceDeets);
+                hashMap.put("rent", strRent);
+
 
                 return hashMap;
             }

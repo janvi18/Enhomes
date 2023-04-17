@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserUpdateActivity extends AppCompatActivity {
-    EditText edtRoleId, edtFirstName, edtLastName, edtAge, edtGender, edtContactNo, edtEmail, edtPassword;
+    EditText  edtFirstName, edtLastName, edtAge, edtGender, edtContactNo, edtEmail, edtPassword;
     TextView tvDateOfBirth;
 
     Button btnUser, btnDeleteUser;
@@ -55,7 +55,6 @@ public class UserUpdateActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         btnUser = findViewById(R.id.btn_add_user);
-        edtRoleId = findViewById(R.id.edt_roleId);
         edtFirstName = findViewById(R.id.edt_firstName);
         edtLastName = findViewById(R.id.edt_lastName);
         edtAge = findViewById(R.id.edt_age);
@@ -69,7 +68,7 @@ public class UserUpdateActivity extends AppCompatActivity {
 
         radioGroup = findViewById(R.id.radio_grp_Usr);
 
-        tvDateOfBirth = findViewById(R.id.tv_dob);
+        tvDateOfBirth = findViewById(R.id.tv_udob);
         btnDate = findViewById(R.id.btn_Bdate);
 
         Calendar calendar = Calendar.getInstance();
@@ -89,7 +88,7 @@ public class UserUpdateActivity extends AppCompatActivity {
         String strEmail = i.getStringExtra("EMAIL");
         String strPassword = i.getStringExtra("PASSWORD");
 
-        edtRoleId.setText(strRoleId);
+//        edtRoleId.setText(strRoleId);
         if (strGender.equals("Male")) {
             rmale.setChecked(true);
         } else if (strGender.equals("Female")) {
@@ -141,7 +140,7 @@ public class UserUpdateActivity extends AppCompatActivity {
         btnUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String strRoleId = edtRoleId.getText().toString();
+//                String strRoleId = edtRoleId.getText().toString();
                 String strFirstName = edtFirstName.getText().toString();
                 String strLastName = edtLastName.getText().toString();
                 String strAge = edtAge.getText().toString();
@@ -241,7 +240,7 @@ public class UserUpdateActivity extends AppCompatActivity {
     private void deleteAPI(String userId) {
 
         Log.e("TAG****", "deleteAPI Update " + userId);
-        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Utils.SIGNUP_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, Utils.SIGNUP_URL + "/" + userId, new Response.Listener<String>() {
             @Override
 
             public void onResponse(String response) {

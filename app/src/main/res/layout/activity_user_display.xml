@@ -18,53 +18,42 @@
         android:textStyle="bold" />
 
     <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/horizontalScrollView"
         android:layout_below="@id/tv_head">
 
         <RelativeLayout
-            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:id="@+id/layout"
+            >
 
             <TableLayout
                 android:id="@+id/table"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                >
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="1dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginBottom="0dp"
-                    android:padding="1dp"
-                    android:paddingVertical="0dp">
-
-                    <TextView
-                        android:id="@+id/tv_roleName"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="Role Id"
-                        android:textColor="@color/black"
-                        android:textSize="20dp"
-                        android:visibility="visible" />
+                    android:paddingVertical="0dp"
+                    >
 
                     <TextView
                         android:id="@+id/tv_firstName"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape"
-                        android:gravity="center"
-                        android:padding="5dp"
                         android:text="Firstname"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:padding="5dp"
+                        android:background="@drawable/cell_shape"
                         android:textColor="@color/black"
                         android:textSize="20dp" />
 
@@ -73,22 +62,22 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape"
-                        android:gravity="center"
-                        android:padding="5dp"
                         android:text="Lastname"
+                        android:gravity="center"
+                        android:background="@drawable/cell_shape"
+                        android:padding="5dp"
                         android:textColor="@color/black"
                         android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/tv_DOB"
                         android:layout_width="118dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape"
-                        android:paddingVertical="5dp"
                         android:paddingLeft="5dp"
+                        android:paddingVertical="5dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/cell_shape"
                         android:text="Date Of Birth"
+                        android:layout_gravity="center_vertical"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
@@ -96,11 +85,11 @@
                         android:id="@+id/tv_Age"
                         android:layout_width="45dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape"
+                        android:text="Age"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="Age"
+                        android:background="@drawable/cell_shape"
+                        android:layout_gravity="center_vertical"
                         android:textColor="@color/black"
                         android:textSize="20dp" />
 
@@ -108,11 +97,11 @@
                         android:id="@+id/tv_Gen"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape"
-                        android:gravity="center"
-                        android:padding="5dp"
                         android:text="Gender"
+                        android:gravity="center"
+                        android:background="@drawable/cell_shape"
+                        android:layout_gravity="center_vertical"
+                        android:padding="5dp"
                         android:textColor="@color/black"
                         android:textSize="20dp" />
 
@@ -120,11 +109,11 @@
                         android:id="@+id/tv_Cnt"
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
+                        android:text="Contact No"
+                        android:gravity="center"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/cell_shape"
-                        android:gravity="center"
                         android:padding="5dp"
-                        android:text="Contact No"
                         android:textColor="@color/black"
                         android:textSize="20dp" />
 
@@ -132,24 +121,36 @@
                         android:id="@+id/tv_Em"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape"
-                        android:gravity="center"
-                        android:padding="5dp"
                         android:text="Email"
+                        android:gravity="center"
+                        android:background="@drawable/cell_shape"
+                        android:padding="5dp"
+                        android:layout_gravity="center_vertical"
                         android:textColor="@color/black"
                         android:textSize="20dp" />
 
                     <TextView
-                        android:id="@+id/act"
-                        android:layout_width="120dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/cell_shape"
+                        android:id="@+id/tv_pwd"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:text="Password"
                         android:gravity="center"
-                        android:padding="6dp"
-                        android:text="Actions"
+                        android:background="@drawable/cell_shape"
+                        android:padding="5dp"
+                        android:layout_gravity="center_vertical"
                         android:textColor="@color/black"
                         android:textSize="20dp" />
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:text="Actions"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:gravity="center"
+                        android:id="@+id/act"
+                        android:background="@drawable/cell_shape"
+                        android:padding="6dp" />
 
                 </TableRow>
             </TableLayout>

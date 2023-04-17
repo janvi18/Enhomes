@@ -41,6 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            style="@android:style/Widget.EditText"
             android:layout_weight="1"
             android:hint="Creation Date"
             android:imeOptions="actionNext"
@@ -74,8 +75,8 @@
         />
 
 
-    <EditText
-        android:id="@+id/et_amt"
+    <TextView
+        android:id="@+id/tv_amt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -101,6 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
+            style="@android:style/Widget.EditText"
             android:hint="Payment Date"
             android:imeOptions="actionNext"
             android:singleLine="true"
@@ -131,6 +133,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            style="@android:style/Widget.EditText"
             android:layout_weight="1"
             android:hint="Last Date"
             android:imeOptions="actionNext"
@@ -152,8 +155,8 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/et_penalty"
+    <TextView
+        android:id="@+id/tv_penalty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

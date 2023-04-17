@@ -1,6 +1,6 @@
 package com.e_society.model;
 
-public class RoleModel {
+public class RoleLangModel {
     String _id, roleName;
 
     public String get_id() {

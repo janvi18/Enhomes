@@ -14,7 +14,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.e_society.R;
 import com.e_society.RoleActivity;
 import com.e_society.adapter.MyRoleAdapter;
-import com.e_society.model.RoleModel;
+import com.e_society.model.RoleLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,7 +49,7 @@ public class RoleDisplayActivity extends AppCompatActivity {
     }
 
     private void RoleApi() {
-        ArrayList<RoleModel> arrayList = new ArrayList<RoleModel>();
+        ArrayList<RoleLangModel> arrayList = new ArrayList<RoleLangModel>();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.ROLE_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -61,7 +61,7 @@ public class RoleDisplayActivity extends AppCompatActivity {
                         String strRoleId = jsonObject1.getString("_id");
                         String strRoleName = jsonObject1.getString("roleName");
 
-                        RoleModel roleLangModel = new RoleModel();
+                        RoleLangModel roleLangModel = new RoleLangModel();
                         roleLangModel.setRoleName(strRoleName);
                         roleLangModel.set_id(strRoleId);
 

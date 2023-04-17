@@ -45,11 +45,15 @@ public class HouseListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = layoutInflater.inflate(R.layout.raw_list, null);
+        view = layoutInflater.inflate(R.layout.house_table, null);
 
-        TextView tvData = view.findViewById(R.id.tv_data);
+        TextView tvHouseDeets;
 
-        tvData.setText(houseLangModelArrayList.get(position).get_id() + houseLangModelArrayList.get(position).getHouse());
+        tvHouseDeets = view.findViewById(R.id.tv_houseDeets);
+
+        tvHouseDeets.setText(houseLangModelArrayList.get(position).getHouse());
+
+
 
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);
@@ -63,7 +67,7 @@ public class HouseListAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, HouseUpdateActivity.class);
                 intent.putExtra("HOUSE_ID", id);
                 intent.putExtra("HOUSE_DEETS", houseLangModelArrayList.get(position).getHouse());
-
+                intent.putExtra("USER",houseLangModelArrayList.get(position).getUser());
                 context.startActivity(intent);
 
             }
@@ -78,7 +82,7 @@ public class HouseListAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, HouseUpdateActivity.class);
                 intent.putExtra("HOUSE_ID", id1);
                 intent.putExtra("HOUSE_DEETS", houseLangModelArrayList.get(position).getHouse());
-
+                intent.putExtra("USER",houseLangModelArrayList.get(position).getUser());
 
                 context.startActivity(intent);
             }

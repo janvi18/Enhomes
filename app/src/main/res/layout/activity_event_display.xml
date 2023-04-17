@@ -1,34 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF0FF"
-    android:orientation="vertical"
-    android:padding="20dp"
     tools:context=".display.EventDisplayActivity">
 
     <TextView
         android:id="@+id/tv_head"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="Data"
         android:textColor="#B765A6"
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <ListView
-        android:id="@+id/ls_event_listview"
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="20dp"
-        android:textColor="#000"
-        android:textSize="20sp" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_head">
+
+        <RelativeLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TableLayout
+                android:id="@+id/table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:padding="1dp"
+                    android:paddingVertical="0dp">
+
+                    <TextView
+                        android:id="@+id/tv_eventDate"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="Event Start Date"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/tv_tvEventEndDate"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="Event End Date"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/tv_eventDetails"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape"
+                        android:paddingVertical="5dp"
+                        android:paddingLeft="5dp"
+                        android:text="Event Details"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/tv_rent"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="Rent"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+
+                    <TextView
+                        android:id="@+id/act"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/cell_shape"
+                        android:gravity="center"
+                        android:padding="6dp"
+                        android:text="Actions"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                </TableRow>
+            </TableLayout>
+
+
+            <ListView
+                android:id="@+id/ls_event_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/table"
+                android:layout_marginTop="20dp"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="20dp"
+                android:textColor="#000"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </HorizontalScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add_event"
@@ -39,4 +130,4 @@
         android:layout_margin="20dp"
         android:src="@drawable/place" />
 
-</LinearLayout>
+</RelativeLayout>

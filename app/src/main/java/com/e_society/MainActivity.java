@@ -6,6 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.e_society.display.EventDisplayActivity;
+import com.e_society.display.FeedbackDisplayActivity;
+import com.e_society.display.HouseDisplayActivity;
+import com.e_society.display.MaintenanceDisplayActivity;
+import com.e_society.display.MaintenanceMasterDisplayActivity;
+import com.e_society.display.MemberDisplayActivity;
+import com.e_society.display.NonMemberDisplayActivity;
+import com.e_society.display.PlaceDisplayActivity;
+import com.e_society.display.RoleDisplayActivity;
+import com.e_society.display.StaffDisplayActivity;
+import com.e_society.display.UserDisplayActivity;
+import com.e_society.update.StaffUpdateAcivity;
+
+import java.lang.reflect.Member;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent i = new Intent(MainActivity.this, SignupActivity.class);
+                Intent i = new Intent(MainActivity.this, HouseActivity.class);
                 startActivity(i);
                 finish();
             }

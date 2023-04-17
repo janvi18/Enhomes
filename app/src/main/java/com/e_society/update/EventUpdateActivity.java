@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.text.format.Time;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.EventActivity;
 import com.e_society.R;
 import com.e_society.display.EventDisplayActivity;
 import com.e_society.display.MaintenanceDisplayActivity;
@@ -33,9 +35,9 @@ import java.util.Map;
 
 public class EventUpdateActivity extends AppCompatActivity {
 
-    EditText edt_eventDetail, edt_rent, edt_HouseId, edtPlaceId;
+    EditText edt_eventDetail, edt_HouseId, edtPlaceId;
     Button btn_event, btnDeleteEvent;
-    TextView tvDate, tvEndDate;
+    TextView tvDate, tvEndDate, tvRent;
     ImageButton btnDate, btnEndDate;
 
     private int date;
@@ -55,7 +57,7 @@ public class EventUpdateActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         edt_eventDetail = findViewById(R.id.edt_eventDetail);
-        edt_rent = findViewById(R.id.edt_rent);
+        tvRent = findViewById(R.id.edt_rent);
         btn_event = findViewById(R.id.btn_event);
         btnDate = findViewById(R.id.btn_date);
         tvDate = findViewById(R.id.tv_date);
@@ -80,9 +82,8 @@ public class EventUpdateActivity extends AppCompatActivity {
 
         //set text
         EventLangModel eventLangModel = new EventLangModel();
-
         edt_eventDetail.setText(strEventDetails);
-        edt_rent.setText(strRent);
+        tvRent.setText(strRent);
         tvDate.setText(strEventDate);
         tvEndDate.setText(strEventEndDate);
 
@@ -102,10 +103,34 @@ public class EventUpdateActivity extends AppCompatActivity {
                 String strEventDate = tvEndDate.getText().toString();
                 String strEventEndDate = tvDate.getText().toString();
                 String strEventDetails = edt_eventDetail.getText().toString();
-                String strRent = edt_rent.getText().toString();
+                String strRent = tvRent.getText().toString();
 
+                if(strEventDate.length()==0)
+                {
+                    tvDate.requestFocus();
+                    tvDate.setError("FIELD CANNOT BE EMPTY");
+                }
+                else if(strEventEndDate.length()==0)
+                {
+                    tvEndDate.requestFocus();
+                    tvEndDate.setError("FIELD CANNOT BE EMPTY");
+                }
+                else if(strEventDetails.length()==0)
+                {
+                    edt_eventDetail.requestFocus();
+                    edt_eventDetail.setError("FIELD CANNOT BE EMPTY");
+                }
+                else if(!strEventDetails.matches("[a-zA-Z ]+"))
+                {
+                    edt_eventDetail.requestFocus();
+                    edt_eventDetail.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+                }
+                else{
+                    Toast.makeText(EventUpdateActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
+                    apiCall(strEventId, strEventDate, strEventEndDate, strEventDetails, strRent);
 
-                apiCall(strEventId, strEventDate, strEventEndDate, strEventDetails, strRent);
+                }
+
 
             }
         });

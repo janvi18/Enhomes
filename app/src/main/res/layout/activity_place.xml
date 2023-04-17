@@ -27,8 +27,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="Place Details"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/edt_placeRent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Rent"
         android:imeOptions="actionDone"
         android:singleLine="true"
+        android:inputType="number"
         android:textColor="#000"
         android:textColorHint="#000"
         android:textSize="20sp" />
