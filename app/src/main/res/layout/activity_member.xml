@@ -8,7 +8,6 @@
     android:padding="20dp"
     tools:context=".EventActivity">
 
-
     <TextView
         android:id="@+id/tv_place"
         android:layout_width="wrap_content"
@@ -19,7 +18,6 @@
         android:textColor="#B765A6"
         android:textSize="30sp"
         android:textStyle="bold" />
-
 
     <TextView
         android:id="@+id/tv_houseId"
@@ -44,12 +42,14 @@
 
         />
 
+
     <EditText
         android:id="@+id/edt_memberName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="MemberName"
+        android:hint=" MemberName"
+        android:drawableLeft="@drawable/ic_person"
         android:imeOptions="actionNext"
         android:singleLine="true"
         android:textColor="#000"
@@ -63,12 +63,12 @@
 
         <TextView
             android:id="@+id/tv_dateOfBirth"
-            style="@android:style/Widget.EditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:hint="Date"
+            style="@android:style/Widget.EditText"
             android:imeOptions="actionNext"
             android:singleLine="true"
             android:textColor="#000"
@@ -93,7 +93,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Age"
+        android:hint=" Age"
+        android:drawableLeft="@drawable/age"
         android:imeOptions="actionNext"
         android:singleLine="true"
         android:textColor="#000"
@@ -102,12 +103,12 @@
 
     <TextView
         android:id="@+id/tv_gender"
-        style="@android:style/Widget.EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="Gender"
         android:imeOptions="actionNext"
+        style="@android:style/Widget.EditText"
         android:singleLine="true"
         android:textColor="#000"
         android:textColorHint="#000"
@@ -145,7 +146,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="ContactNo"
+        android:hint=" ContactNo"
+        android:drawableLeft="@drawable/call"
         android:imeOptions="actionDone"
         android:singleLine="true"
         android:textColor="#000"
@@ -178,7 +180,7 @@
         android:textColor="#000"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
 
 </LinearLayout>

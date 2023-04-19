@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.e_society.display.AdminDisplayActivity;
 import com.e_society.display.EventDisplayActivity;
@@ -18,9 +19,8 @@ import com.e_society.display.PlaceDisplayActivity;
 import com.e_society.display.RoleDisplayActivity;
 import com.e_society.display.StaffDisplayActivity;
 import com.e_society.display.UserDisplayActivity;
+import com.e_society.update.HouseUpdateActivity;
 import com.e_society.update.StaffUpdateAcivity;
-
-import java.lang.reflect.Member;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent i = new Intent(MainActivity.this, AdminDisplayActivity.class);
+                Intent i = new Intent(MainActivity.this, MaintenanceMasterActivity.class);
                 startActivity(i);
                 finish();
             }

@@ -12,7 +12,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.DashBoardActivity;
+import com.e_society.LoginActivity;
 import com.e_society.MemberActivity;
+import com.e_society.UserDashBoardActivity;
 import com.e_society.adapter.MemberListAdapter;
 import com.e_society.model.MemberLangModel;
 import com.e_society.utils.Utils;
@@ -32,6 +35,22 @@ public class MemberDisplayActivity extends AppCompatActivity {
 
     ListView memberList;
     FloatingActionButton btnMemberAdd;
+    String name;
+
+    @Override
+    public void onBackPressed() {
+        name= LoginActivity.getName();
+        Log.e(name,"name in user Display");
+        if(name.equals("user"))
+        {
+            Intent i = new Intent(MemberDisplayActivity.this, UserDashBoardActivity.class);
+            startActivity(i);
+        }
+        else if(name.equals("admin")) {
+            Intent i = new Intent(MemberDisplayActivity.this, DashBoardActivity.class);
+            startActivity(i);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +60,15 @@ public class MemberDisplayActivity extends AppCompatActivity {
         memberList = findViewById(R.id.member_listview);
 
         btnMemberAdd = findViewById(R.id.btn_add_member);
+
+        name= LoginActivity.getName();
+        Log.e(name,"name in member Display");
+        if(name.equals("user"))
+        {
+            btnMemberAdd.setEnabled(false);
+            btnMemberAdd.setVisibility(View.VISIBLE);
+        }
+
         btnMemberAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,8 +84,8 @@ public class MemberDisplayActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.MEMBER_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("Display**", "api calling done");
-                Log.e("response:  : ", response);
+                Log.e("Display**","api calling done");
+                Log.e("response:  : ",response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -66,7 +94,8 @@ public class MemberDisplayActivity extends AppCompatActivity {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         JSONObject jsonObject2 = jsonObject1.getJSONObject("house");
                         String strHouseId = jsonObject2.getString("_id");
-                        Log.e(strHouseId, "bohot hua ab");
+                        String houseDetails=jsonObject2.getString("houseDetails");
+
                         String strMemberId = jsonObject1.getString("_id");
                         String strName = jsonObject1.getString("memberName");
                         String strDate = jsonObject1.getString("dateOfBirth");
@@ -77,6 +106,7 @@ public class MemberDisplayActivity extends AppCompatActivity {
                         MemberLangModel memberLangModel = new MemberLangModel();
                         memberLangModel.set_id(strMemberId);
                         memberLangModel.setHouseId(strHouseId);
+                        memberLangModel.setHouseName(houseDetails);
                         memberLangModel.setMemberName(strName);
                         memberLangModel.setDateOfBirth(strDate);
                         memberLangModel.setAge(strAge);

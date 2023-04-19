@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +30,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.e_society.adapter.HouseListAdapter;
-import com.e_society.display.HouseDisplayActivity;
 import com.e_society.display.MemberDisplayActivity;
 import com.e_society.model.HouseLangModel;
-import com.e_society.model.UserLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 
@@ -47,14 +46,16 @@ import java.util.Map;
 
 public class MemberActivity extends AppCompatActivity {
     EditText edtMemberName, edtAge, edtContactNo;
-    TextView tv_dateOfBirth, tvGender, tvHouseId;
-    Spinner spinnerHouse;
+    TextView tv_dateOfBirth, tvGender;
+
     ImageButton btnDate;
     Button addMember;
-    String strSelectedHouse, houseId;
+
+    String strSelectedHouse,houseId ;
+    Spinner spinnerHouse;
 
     RadioGroup radioGroup;
-    RadioButton rbMale, rbFemale;
+    RadioButton rbMale,rbFemale;
 
     private int date;
     private int month;
@@ -65,7 +66,6 @@ public class MemberActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member);
 
-        tvHouseId = findViewById(R.id.tv_houseId);
         edtMemberName = findViewById(R.id.edt_memberName);
         edtAge = findViewById(R.id.edt_age);
 
@@ -75,17 +75,17 @@ public class MemberActivity extends AppCompatActivity {
         addMember = findViewById(R.id.btn_member);
         btnDate = findViewById(R.id.btn_memberDate);
         spinnerHouse = findViewById(R.id.spinner_member);
-        radioGroup = findViewById(R.id.radio_grp);
-        rbMale = findViewById(R.id.radio_male);
-        rbFemale = findViewById(R.id.radio_female);
+
+        radioGroup=findViewById(R.id.radio_grp);
+        rbMale=findViewById(R.id.radio_male);
+        rbFemale=findViewById(R.id.radio_female);
 
         Calendar calendar = Calendar.getInstance();
         date = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
+
         HouseApi();
-
-
         //date
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,9 +93,16 @@ public class MemberActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(MemberActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tv_dateOfBirth.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+                        CharSequence strDate = null;
+                        Time chosenDate = new Time();
+                        chosenDate.set(dayOfMonth, month, year);
+                        long dtDob = chosenDate.toMillis(true);
+
+                        strDate = DateFormat.format("yyyy-MM-dd", dtDob);
+
+                        tv_dateOfBirth.setText(strDate);
                     }
-                }, date, month, year);
+                }, year, month, date);
                 datePickerDialog.show();
 
             }
@@ -105,51 +112,67 @@ public class MemberActivity extends AppCompatActivity {
         addMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String houseId = tvHouseId.getText().toString();
                 String memberName = edtMemberName.getText().toString();
                 String age = edtAge.getText().toString();
                 String contactNumber = edtContactNo.getText().toString();
                 String dateOfBirth = tv_dateOfBirth.getText().toString();
 
 
-                if (memberName.length() == 0) {
+                if(memberName.length()==0)
+                {
                     edtMemberName.requestFocus();
                     edtMemberName.setError("FIELD CANNOT BE EMPTY");
-                } else if (!memberName.matches("[a-zA-Z ]+")) {
+                }
+                else if(!memberName.matches("[a-zA-Z ]+"))
+                {
                     edtMemberName.requestFocus();
                     edtMemberName.setError("ENTER ONLY ALPHABETICAL CHARACTER");
-                } else if (dateOfBirth.length() == 0) {
+                }
+                else if(dateOfBirth.length()==0)
+                {
                     tv_dateOfBirth.requestFocus();
                     tv_dateOfBirth.setError("FIELD CANNOT BE EMPTY");
-                } else if (age.length() == 0) {
+                }
+                else if(age.length()==0)
+                {
                     edtAge.requestFocus();
                     edtAge.setError("FIELD CANNOT BE EMPTY");
-                } else if (!age.matches("^[0-9]{1,}$")) {
+                }
+                else if(!age.matches("^[0-9]{1,}$"))
+                {
                     edtAge.requestFocus();
                     edtAge.setError("ENTER ONLY DIGITS");
-                } else if (!(rbMale.isChecked() || rbFemale.isChecked())) {
+                }
+                else if(!(rbMale.isChecked() || rbFemale.isChecked()))
+                {
                     tvGender.requestFocus();
                     tvGender.setError("PLEASE SELECT GENDER");
 
-                } else if (contactNumber.length() == 0) {
+                }
+                else if(contactNumber.length()==0)
+                {
                     edtContactNo.requestFocus();
                     edtContactNo.setError("FIELD CANNOT BE EMPTY");
-                } else if (!contactNumber.matches("^[0-9]{10}$")) {
+                }
+                else if(!contactNumber.matches("^[0-9]{10}$"))
+                {
                     edtContactNo.requestFocus();
                     edtContactNo.setError("ENTER ONLY DIGITS");
-                } else {
+                }
+                else
+                {
 
                     int id = radioGroup.getCheckedRadioButtonId();
                     RadioButton radioButton = findViewById(id);
                     String strRadioButton = radioButton.getText().toString();
 
-                    Toast.makeText(MemberActivity.this, "Validation Successful", Toast.LENGTH_LONG).show();
-                    apiCall(houseId, memberName, strRadioButton, age, contactNumber, dateOfBirth);
-                    Log.e(houseId,memberName);
+                    Log.e(houseId+"","House Id");
+
+                    Toast.makeText(MemberActivity.this,"Validation Successful",Toast.LENGTH_LONG).show();
+                    apiCall(houseId, memberName,strRadioButton, age, contactNumber, dateOfBirth);
                 }
             }
         });
-
     }
 
     private void HouseApi() {
@@ -236,14 +259,22 @@ public class MemberActivity extends AppCompatActivity {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("user");
+                        String strUserId = jsonObject2.getString("_id");
+
+                        Log.e(strUserId+"user","UserId");
+
                         String strHouseId = jsonObject1.getString("_id");
                         String strHouseDeets = jsonObject1.getString("houseDetails");
 
-                       if(strHouseDeets.equals(strSelectedHouse))
-                       {
-                           houseId=strHouseId;
-                           Log.e(houseId,"House id in spinner");
-                       }
+
+                        if(strHouseDeets.equals(strSelectedHouse))
+                        {
+                            Log.e("in get api",strSelectedHouse);
+                            houseId=strHouseId;
+                            Log.e(houseId,"House id in spinner");
+                        }
 
                     }
                 } catch (JSONException e) {
@@ -262,12 +293,11 @@ public class MemberActivity extends AppCompatActivity {
     }
 
 
-    private void apiCall(String strHouseId, String strMemberName, String strGender, String strAge, String strContactNumber, String strDateOfBirt) {
+    private void apiCall(String strHouseId, String strMemberName,String strGender, String strAge, String strContactNumber, String strDateOfBirt) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.MEMBER_URL, new Response.Listener<String>() {
             @Override
 
             public void onResponse(String response) {
-                Log.e(houseId,"aave chhe ke nai");
                 Log.e("api calling done", response);
 
                 Intent intent = new Intent(MemberActivity.this, MemberDisplayActivity.class);
@@ -298,6 +328,4 @@ public class MemberActivity extends AppCompatActivity {
         VolleySingleton.getInstance(MemberActivity.this).addToRequestQueue(stringRequest);
 
     }
-
-
 }

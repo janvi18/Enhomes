@@ -10,6 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.e_society.EventActivity;
+import com.e_society.LoginActivity;
+import com.e_society.MemberActivity;
 import com.e_society.R;
 import com.e_society.model.MemberLangModel;
 import com.e_society.update.EventUpdateActivity;
@@ -48,16 +51,18 @@ public class MemberListAdapter extends BaseAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = layoutInflater.inflate(R.layout.member_table, null);
 
-        TextView tv_houseId,tv_memberName,tv_Age,tvCntNo,tvGender,tv_Dob;
 
-        tv_houseId=view.findViewById(R.id.tv_houseId);
+
+        TextView tv_house,tv_memberName,tv_Age,tvCntNo,tvGender,tv_Dob;
+
+        tv_house=view.findViewById(R.id.tv_house);
         tv_memberName=view.findViewById(R.id.tv_memberName);
         tv_Age=view.findViewById(R.id.tv_age);
         tvCntNo=view.findViewById(R.id.tv_contactNo);
         tvGender=view.findViewById(R.id.tv_gender);
         tv_Dob=view.findViewById(R.id.tv_dateOfBirth);
 
-        tv_houseId.setText(memberLangModelArrayList.get(position).getHouseId());
+        tv_house.setText(memberLangModelArrayList.get(position).getHouseName());
         tv_memberName.setText(memberLangModelArrayList.get(position).getMemberName());
         tv_Age.setText(memberLangModelArrayList.get(position).getAge());
         tv_Dob.setText(memberLangModelArrayList.get(position).getDateOfBirth());
@@ -67,6 +72,13 @@ public class MemberListAdapter extends BaseAdapter {
 
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);
+
+        String name= LoginActivity.getName();
+        if(name.equals("user"))
+        {
+            imgEdit.setEnabled(false);
+            imgDelete.setEnabled(false);
+        }
 
         imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override

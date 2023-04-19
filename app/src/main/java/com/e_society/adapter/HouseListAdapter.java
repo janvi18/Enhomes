@@ -53,8 +53,6 @@ public class HouseListAdapter extends BaseAdapter {
 
         tvHouseDeets.setText(houseLangModelArrayList.get(position).getHouse());
 
-
-
         ImageView imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);
 

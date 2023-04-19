@@ -48,7 +48,7 @@
 
                     <TextView
                         android:id="@+id/tv_emails"
-                        android:layout_width="100dp"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:text="Email"
                         android:gravity="center"
@@ -60,7 +60,7 @@
 
                     <TextView
                         android:id="@+id/tv_passwords"
-                        android:layout_width="100dp"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="Password"

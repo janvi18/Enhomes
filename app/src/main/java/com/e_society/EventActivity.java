@@ -1,18 +1,25 @@
 package com.e_society;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +28,19 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.e_society.adapter.EventListAdapter;
+import com.e_society.adapter.HouseListAdapter;
+import com.e_society.adapter.PlaceListAdapter;
 import com.e_society.display.EventDisplayActivity;
+import com.e_society.display.HouseDisplayActivity;
+import com.e_society.display.PlaceDisplayActivity;
 import com.e_society.model.EventLangModel;
+import com.e_society.model.HouseLangModel;
+import com.e_society.model.PlaceLangModel;
 import com.e_society.utils.Utils;
 import com.e_society.utils.VolleySingleton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,14 +51,15 @@ import java.util.Map;
 
 public class EventActivity extends AppCompatActivity {
 
-    EditText edtEventDetails, edtPlaceId, edtHouseId;
+    EditText edtEventDetails;
     Button btnAddEvent;
     TextView tvDate, tvEndDate, tvRent;
     ImageButton btnDate, btnEndDate;
 
-    String strHouseId,strPlaceId, strDate, strEndDate, strEventDetails, strRent;
+    String strSelectedPlace, strSelectedHouse;
+    String houseId,placeId, strDate, strEndDate, strEventDetails, strRent;
 
-
+    Spinner spinnerHouse, spinnerPlace;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +70,13 @@ public class EventActivity extends AppCompatActivity {
 
         edtEventDetails = findViewById(R.id.edt_eventDetail);
         tvRent = findViewById(R.id.edt_rent);
-        edtHouseId = findViewById(R.id.edt_eHouseId);
-        edtPlaceId = findViewById(R.id.edt_ePlaceId);
 
-        tvRent.setText("200");
+        spinnerHouse=findViewById(R.id.spinner_house);
+        spinnerPlace=findViewById(R.id.spinner_place);
+
+        DisplayHouseApi();
+        DisplayPlaceApi();
+//        tvRent.setText("200");
 
         //date
         btnDate = findViewById(R.id.btn_date);
@@ -70,7 +89,6 @@ public class EventActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
 
-//        getPlaceApi();
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,9 +102,6 @@ public class EventActivity extends AppCompatActivity {
 
                         strDate = DateFormat.format("yyyy-MM-dd", dtDob);
 
-                        //txtDate.setText(strDate);
-
-
                         tvDate.setText(strDate);
                     }
                 }, year, month, date);
@@ -97,7 +112,6 @@ public class EventActivity extends AppCompatActivity {
         btnEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DatePickerDialog datePickerDialog = new DatePickerDialog(EventActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -125,8 +139,6 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.e("inside","button Click");
-                strHouseId = edtHouseId.getText().toString();
-                strPlaceId = edtPlaceId.getText().toString();
                 strDate = tvDate.getText().toString();
                 strEndDate = tvEndDate.getText().toString();
                 strEventDetails = edtEventDetails.getText().toString();
@@ -160,7 +172,7 @@ public class EventActivity extends AppCompatActivity {
                     tvRent.setError("FIELD CANNOT BE EMPTY");
                 }
                 else{
-                    DateAPI(strDate,strEndDate);
+                    DateAPI(strDate,strEndDate,placeId);
 
                 }
 
@@ -171,26 +183,55 @@ public class EventActivity extends AppCompatActivity {
 
     }
 
-    private void DateAPI(String strDate, String strEndDate) {
-        ArrayList<EventLangModel> arrayList = new ArrayList<EventLangModel>();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.DATE_URL+"/"+ this.strDate +"/"+ this.strEndDate, new Response.Listener<String>() {
+    private void DisplayPlaceApi() {
+        ArrayList<PlaceLangModel> arrayList = new ArrayList<PlaceLangModel>();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.PLACE_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    String msg = jsonObject.getString("data");
-                    Log.e(msg,"");
-                    if(msg.contains("Not"))
-                    {
-                        Toast.makeText(EventActivity.this, "PLACE NOT AVAILABLE", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        EndDateApiCheck();
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    int j=1;
+                    String strPlace[]=new String[jsonArray.length()+1];
+                    strPlace[0]="Select a Place";
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String strPlaceName = jsonObject1.getString("placeName");
 
-//                        Toast.makeText(EventActivity.this, "PLACE AVAILABLE", Toast.LENGTH_SHORT).show();
-//                        Toast.makeText(EventActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
-//                        apiCall(strHouseId, strPlaceId, strDate, strEndDate, strEventDetails, strRent);
+                        strPlace[j]=strPlaceName;
+                        j++;
+
                     }
+                    ArrayAdapter<String> arrayAdapter = new
+                            ArrayAdapter<String>(EventActivity.this, android.R.layout.simple_list_item_1, strPlace) {
+                                @Override
+                                public View getDropDownView(int position, @Nullable View convertView,
+                                                            @NonNull ViewGroup parent) {
+
+                                    TextView tvData = (TextView) super.getDropDownView(position, convertView, parent);
+                                    tvData.setTextColor(Color.BLACK);
+                                    tvData.setTextSize(20);
+                                    return tvData;
+                                }
+
+                            };
+                    spinnerPlace.setAdapter(arrayAdapter);
+
+                    spinnerPlace.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            strSelectedPlace = strPlace[position];
+                            Log.e("selected user",strSelectedPlace);
+                            getPlaceId();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
 
 
                 } catch (JSONException e) {
@@ -205,28 +246,174 @@ public class EventActivity extends AppCompatActivity {
         });
 
         VolleySingleton.getInstance(EventActivity.this).addToRequestQueue(stringRequest);
+
+
     }
 
-    private void EndDateApiCheck() {
-        ArrayList<EventLangModel> arrayList = new ArrayList<EventLangModel>();
+    private void getPlaceId() {
+        ArrayList<PlaceLangModel> arrayList = new ArrayList<PlaceLangModel>();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.END_DATE_URL+"/"+ this.strDate +"/"+ this.strEndDate, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.PLACE_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String strPlaceId = jsonObject1.getString("_id");
+                        String strPlaceName = jsonObject1.getString("placeName");
+                        String strRent=jsonObject1.getString("rent");
+
+                        if(strSelectedPlace.equals(strPlaceName))
+                        {
+                            placeId=strPlaceId;
+                            tvRent.setText(strRent);
+
+
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleySingleton.getInstance(EventActivity.this).addToRequestQueue(stringRequest);
+
+    }
+
+    private void DisplayHouseApi() {
+        ArrayList<HouseLangModel> arrayList = new ArrayList<HouseLangModel>();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.HOUSE_URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    int j=1;
+                    String strHouses[]=new String[jsonArray.length()+1];
+                    strHouses[0]="Select you House";
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String strHouseId = jsonObject1.getString("_id");
+                        String strHouseDeets = jsonObject1.getString("houseDetails");
+
+                        strHouses[j]=strHouseDeets;
+                        j++;
+                    }
+                    ArrayAdapter<String> arrayAdapter = new
+                            ArrayAdapter<String>(EventActivity.this, android.R.layout.simple_list_item_1, strHouses) {
+                                @Override
+                                public View getDropDownView(int position, @Nullable View convertView,
+                                                            @NonNull ViewGroup parent) {
+
+                                    TextView tvData = (TextView) super.getDropDownView(position, convertView, parent);
+                                    tvData.setTextColor(Color.BLACK);
+                                    tvData.setTextSize(20);
+                                    return tvData;
+                                }
+
+                            };
+                    spinnerHouse.setAdapter(arrayAdapter);
+
+                    spinnerHouse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            strSelectedHouse = strHouses[position];
+                            Log.e("selected user",strSelectedHouse);
+                            getHouseId();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleySingleton.getInstance(EventActivity.this).addToRequestQueue(stringRequest);
+
+
+
+    }
+
+    private void getHouseId() {
+        ArrayList<HouseLangModel> arrayList = new ArrayList<HouseLangModel>();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.HOUSE_URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "onResponse:" + response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String strHouseId = jsonObject1.getString("_id");
+                        String strHouseDeets = jsonObject1.getString("houseDetails");
+
+                       if(strSelectedHouse.equals(strHouseDeets))
+                       {
+                           houseId=strHouseId;
+                       }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    private void DateAPI(String strDate, String strEndDate, String placeId) {
+        ArrayList<EventLangModel> arrayList = new ArrayList<EventLangModel>();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.DATE_URL+"/"+ this.strDate +"/"+ this.strEndDate+"/"+placeId, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    String msg = jsonObject.getString("data");
-                    Log.e(msg,"");
-                    if(msg.contains("Not"))
+                    String msg = jsonObject.getString("msg");
+                    Log.e(msg,"Message");
+                    if(msg.contains("No"))
                     {
-                        Toast.makeText(EventActivity.this, "PLACE NOT AVAILABLE", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
                         Toast.makeText(EventActivity.this, "PLACE AVAILABLE", Toast.LENGTH_SHORT).show();
                         Toast.makeText(EventActivity.this, "Validation Successful", Toast.LENGTH_SHORT).show();
-                        apiCall(strHouseId, strPlaceId, strDate, strEndDate, strEventDetails, strRent);
+                        apiCall(houseId, placeId, strDate, strEndDate, strEventDetails, strRent);
                     }
-
+                    else if(msg.contains("Events")){
+                        Toast.makeText(EventActivity.this, "PLACE NOT AVAILABLE", Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -240,49 +427,7 @@ public class EventActivity extends AppCompatActivity {
         });
 
         VolleySingleton.getInstance(EventActivity.this).addToRequestQueue(stringRequest);
-
     }
-
-
-//    private void getPlaceApi() {
-//
-//        ArrayList<PlaceLangModel> arrayList = new ArrayList<PlaceLangModel>();
-//
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, Utils.PLACE_URL, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                Log.e("TAG", "onResponse:" + response);
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    JSONArray jsonArray = jsonObject.getJSONArray("data");
-//                    for (int i = 0; i < jsonArray.length(); i++) {
-//                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-//                        String strPlaceId = jsonObject1.getString("_id");
-//                        String strPlaceName = jsonObject1.getString("placeName");
-//                        String strRent=jsonObject1.getString("rent");
-//
-//
-//                        if(strSelectedPlaceName.equals(strPlaceName))
-//                        {
-//                            tvRent.setText(strRent);
-//                        }
-//
-//
-//
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//
-//        VolleySingleton.getInstance(EventActivity.this).addToRequestQueue(stringRequest);
-//    }
 
     private void apiCall(String strHouseId, String strPlaceId, String strDate, String strEndDate, String strEventDetails, String strRent) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.EVENT_URL, new Response.Listener<String>() {

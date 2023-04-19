@@ -30,7 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Staff Member Name"
+            android:drawableLeft="@drawable/ic_person"
+            android:hint=" Staff Member Name"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:singleLine="true"
@@ -43,9 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:text="Security"
+            android:drawableLeft="@drawable/ic_person"
             android:imeOptions="actionNext"
             android:padding="10dp"
+            android:text=" Security"
             android:textColor="#000"
             android:textColorHint="#000"
             android:textSize="20sp" />
@@ -59,12 +61,12 @@
 
             <TextView
                 android:id="@+id/tv_entry"
+                style="@android:style/Widget.EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:hint="Entry Time"
-                style="@android:style/Widget.EditText"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
                 android:textColor="#000"
@@ -90,9 +92,9 @@
 
             <TextView
                 android:id="@+id/tv_exit"
+                style="@android:style/Widget.EditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@android:style/Widget.EditText"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:hint="Exit Time"
@@ -119,7 +121,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Contact No"
+            android:drawableLeft="@drawable/call"
+            android:hint=" Contact No"
             android:imeOptions="actionNext"
             android:inputType="phone"
             android:singleLine="true"
@@ -132,7 +135,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Address"
+            android:hint=" Address"
+            android:drawableLeft="@drawable/location"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:singleLine="true"
@@ -145,7 +149,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Email"
+            android:drawableLeft="@drawable/ic_email"
+            android:hint=" Email"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:singleLine="true"
@@ -158,7 +163,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Password"
+            android:drawableLeft="@drawable/ic_key"
+            android:hint=" Password"
             android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:singleLine="true"
@@ -167,16 +173,13 @@
             android:textSize="20sp" />
 
 
-
-
-
-
         <EditText
             android:id="@+id/et_agencyName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="AgencyName"
+            android:hint=" AgencyName"
+            android:drawableLeft="@drawable/man"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:singleLine="true"
@@ -189,7 +192,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Agency Contact No"
+            android:drawableLeft="@drawable/call"
+            android:hint=" Agency Contact No"
             android:imeOptions="actionDone"
             android:inputType="phone"
             android:singleLine="true"

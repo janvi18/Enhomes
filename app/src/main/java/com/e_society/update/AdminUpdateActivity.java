@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,19 +29,22 @@ import java.util.Map;
 
 public class AdminUpdateActivity extends AppCompatActivity {
 
-    EditText edtEmail;
+    EditText edtEmail,edtPassword;
     Button btnAdd, btnDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
+        setContentView(R.layout.activity_add_admin);
 
         Intent i = getIntent();
 
         edtEmail = findViewById(R.id.edt_admin_email);
+        edtPassword=findViewById(R.id.edt_admin_password);
         btnAdd = findViewById(R.id.btn_add_admin);
         btnDelete = findViewById(R.id.btn_delete_admin);
+
+        edtPassword.setVisibility(View.GONE);
 
         String strAdminId = i.getStringExtra("ADMIN_ID");
         String strEmail = i.getStringExtra("EMAIL");
@@ -66,7 +70,7 @@ public class AdminUpdateActivity extends AppCompatActivity {
                     edtEmail.setError("FIELD CANNOT BE EMPTY");
                 } else if (!strEmail.matches("^[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]{0,4}$")) {
                     edtEmail.requestFocus();
-                    edtEmail.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+                    edtEmail.setError("ENTER VAILD EMAIL");
                 } else {
                     Toast.makeText(AdminUpdateActivity.this, "Validation Successful", Toast.LENGTH_LONG).show();
                     UpdateAdminApi(strAdminId, strEmail);
@@ -96,7 +100,7 @@ public class AdminUpdateActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> hashMap = new HashMap<>();
-                hashMap.put("adminId", adminId);
+                hashMap.put("id", adminId);
                 return hashMap;
 
 
@@ -127,7 +131,7 @@ public class AdminUpdateActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> hashMap = new HashMap<>();
                 Log.e("id in update Map : ", strAdminId);
-                hashMap.put("adminId", strAdminId);
+                hashMap.put("id", strAdminId);
                 hashMap.put("email", strEmail);
                 return hashMap;
             }

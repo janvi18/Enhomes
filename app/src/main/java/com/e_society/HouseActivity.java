@@ -129,6 +129,9 @@ public class HouseActivity extends AppCompatActivity {
 
                         }
                     });
+
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

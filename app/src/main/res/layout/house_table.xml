@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/tv_houseDeets"
-            android:layout_width="100dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@drawable/cell_shape"

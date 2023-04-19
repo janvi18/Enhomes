@@ -25,12 +25,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Maintenance Amount"
+        android:drawableLeft="@drawable/ic_rent"
+        android:hint=" Maintenance Amount"
         android:imeOptions="actionNext"
+        android:inputType="number"
         android:singleLine="true"
         android:textColor="#000"
         android:textColorHint="#000"
-        android:inputType="number"
         android:textSize="20sp" />
 
     <EditText
@@ -38,12 +39,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Penalty"
+        android:drawableLeft="@drawable/ic_rent"
+        android:hint=" Penalty"
         android:imeOptions="actionDone"
+        android:inputType="number"
         android:singleLine="true"
         android:textColor="#000"
         android:textColorHint="#000"
-        android:inputType="number"
         android:textSize="20sp" />
 
     <android.widget.Button

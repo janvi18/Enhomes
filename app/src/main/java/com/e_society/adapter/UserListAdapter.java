@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import android.widget.BaseAdapter;
 
+import com.e_society.LoginActivity;
 import com.e_society.R;
 import com.e_society.model.UserLangModel;
 import com.e_society.update.UserUpdateActivity;
@@ -72,6 +73,13 @@ public class UserListAdapter extends BaseAdapter {
         ImageView
                 imgEdit = view.findViewById(R.id.img_edit);
         ImageView imgDelete = view.findViewById(R.id.img_delete);
+
+        String name= LoginActivity.getName();
+        if(name.equals("user"))
+        {
+            imgEdit.setEnabled(false);
+            imgDelete.setEnabled(false);
+        }
 
         imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override

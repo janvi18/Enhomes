@@ -15,10 +15,16 @@
         android:theme="@style/Theme.ESociety"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".LogoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".display.AdminDisplayActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminActivity"
+            android:name=".AddAdminActivity"
             android:exported="false" />
         <activity
             android:name=".userTableActivity"

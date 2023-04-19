@@ -1,7 +1,7 @@
 package com.e_society.model;
 
 public class NonMemberLangModel {
-    String id, houseId, nonMemberName, arrivingTime, isVisited, pickup, status;
+    String id, houseId,houseName, nonMemberName, arrivingTime,date, isVisited, pickup, deliver;
 
     public String getHouseId() {
         return houseId;
@@ -9,6 +9,14 @@ public class NonMemberLangModel {
 
     public void setHouseId(String houseId) {
         this.houseId = houseId;
+    }
+
+    public String getHouseName() {
+        return houseName;
+    }
+
+    public void setHouseName(String houseName) {
+        this.houseName = houseName;
     }
 
     public String getId() {
@@ -35,6 +43,14 @@ public class NonMemberLangModel {
         this.arrivingTime = arrivingTime;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getIsVisited() {
         return isVisited;
     }
@@ -51,11 +67,11 @@ public class NonMemberLangModel {
         this.pickup = pickup;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDeliver() {
+        return deliver;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDeliver(String deliver) {
+        this.deliver = deliver;
     }
 }

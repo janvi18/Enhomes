@@ -26,24 +26,25 @@
             android:textSize="30sp"
             android:textStyle="bold" />
 
-<!--        <EditText-->
-<!--            android:id="@+id/edt_roleId"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:hint="RoleId"-->
-<!--            android:imeOptions="actionNext"-->
-<!--            android:singleLine="true"-->
-<!--            android:textColor="#000"-->
-<!--            android:textColorHint="#000"-->
-<!--            android:textSize="20sp" />-->
+        <!--        <EditText-->
+        <!--            android:id="@+id/edt_roleId"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:hint="RoleId"-->
+        <!--            android:imeOptions="actionNext"-->
+        <!--            android:singleLine="true"-->
+        <!--            android:textColor="#000"-->
+        <!--            android:textColorHint="#000"-->
+        <!--            android:textSize="20sp" />-->
 
         <EditText
             android:id="@+id/edt_firstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="FirstName"
+            android:drawableLeft="@drawable/ic_person"
+            android:hint=" FirstName"
             android:imeOptions="actionNext"
             android:singleLine="true"
             android:textColor="#000"
@@ -55,7 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="LastName"
+            android:drawableLeft="@drawable/ic_person"
+            android:hint=" LastName"
             android:imeOptions="actionNext"
             android:singleLine="true"
             android:textColor="#000"
@@ -69,12 +71,12 @@
 
             <TextView
                 android:id="@+id/tv_udob"
+                style="@android:style/Widget.EditText"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:hint="Date Of Birth"
-                style="@android:style/Widget.EditText"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
                 android:textColor="#000"
@@ -99,7 +101,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Age"
+            android:drawableLeft="@drawable/age"
+            android:hint=" Age"
             android:imeOptions="actionNext"
             android:inputType="number"
             android:singleLine="true"
@@ -109,11 +112,11 @@
 
         <TextView
             android:id="@+id/tv_gender"
+            style="@android:style/Widget.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="Gender"
-            style="@android:style/Widget.EditText"
             android:imeOptions="actionNext"
             android:singleLine="true"
             android:textColor="#000"
@@ -151,7 +154,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Contact No"
+            android:drawableLeft="@drawable/call"
+            android:hint=" Contact No"
             android:imeOptions="actionNext"
             android:inputType="number"
             android:singleLine="true"
@@ -164,7 +168,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Eamil"
+            android:drawableLeft="@drawable/ic_email"
+            android:hint=" Email"
             android:imeOptions="actionNext"
             android:singleLine="true"
             android:textColor="#000"
@@ -176,7 +181,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Password"
+            android:drawableLeft="@drawable/ic_key"
+            android:hint=" Password"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:singleLine="true"
